@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<project name="" basedir="." default="help"  description="Generate the API for TYPO3">
+
+ 	<!-- PROPERTIES DECLARATION -->
+	<property name="dryRun" value="${dryRun}"/>
+	<property name="force" value="${force}"/>
+	<property name="verbose" value=""/>
+
+	<property name="path.www" value="/Users/fudriot/Sites/WebApplications/api.typo3.org/www/"/>
+	<property name="path.home" value="/Users/fudriot/Sites/WebApplications/api.typo3.org/home/APIBuilder/"/>
+	<property name="path.writable" value="/Users/fudriot/Sites/WebApplications/api.typo3.org.build/"/>
+	<property name="path.build" value="${path.writable}Build/"/>
+	<property name="path.source" value="${path.writable}Source/"/>
+	<property name="command.doyxgen" value="/Applications/doxygen/Doxygen.app/Contents/Resources/doxygen"/>
+
+
+	<property name="server.credentials" value="api"/>
+	<property name="site.remote.directory" value="/var/www/vhosts/api.typo3.org/"/>
+
+<!--
+	<property name="path.www" value="/var/www/vhosts/api.typo3.org/www/"/>
+	<property name="path.home" value="/var/www/vhosts/api.typo3.org/home/APIBuilder/"/>
+	<property name="path.writable" value="/var/www/vhosts/api.typo3.org/home"/>
+	<property name="path.build" value="${path.writable}Build/"/>
+	<property name="path.source" value="${path.writable}Source/"/>
+	<property name="command.doyxgen" value="/usr/bin/doxygen"/>
+-->
+	<property name="path.build.archive" value="${path.build}Output/Zip/"/>
+	<property name="path.build.api" value="${path.build}Output/Api/"/>
+
+
+	<!-- RUNNING VARIABLES -->
+
+	<!-- FILE SET -->
+	<path id="phingClasses">
+		<pathelement dir="${path.home}Classes/"/>
+	</path>
+
+	<!-- TASK DEFINITION -->
+	<taskdef name="download" classname="Download" classpathref="phingClasses"/>
+	<taskdef name="doxygen" classname="Doxygen" classpathref="phingClasses"/>
+	<taskdef name="phpuml" classname="PHPUML" classpathref="phingClasses"/>
+	<taskdef name="archive" classname="Archive" classpathref="phingClasses"/>
+	<taskdef name="deploy" classname="Deploy" classpathref="phingClasses"/>
+	<taskdef name="rsync" classname="Rsync" classpathref="phingClasses"/>
+	<taskdef name="commandRemote" classname="CommandRemote" classpathref="phingClasses"/>
+	<taskdef name="commandLocal" classname="CommandLocal" classpathref="phingClasses"/>
+
+	<target name="help">
+		<echo>---------------------------------------------</echo>
+		<echo>Usage of this Phing</echo>
+		<echo>---------------------------------------------</echo>
+		<echo>phing build          - build the API by calling all the necessary ants: bootstrap, download, doxygen, phpuml, zip, deploy</echo>
+		<echo>phing bootstrap      - prepare the environment </echo>
+		<echo>phing download       - download sources related to different projects linked with TYPO3</echo>
+		<echo>phing doxygen        - launch the Doxygen generation process</echo>
+		<echo>phing phpuml         - launch the PHP UML generation process</echo>
+		<echo>phing archive        - archive the API documentation</echo>
+		<echo>phing deploy         - deploy the documentation API, Zip to the document root</echo>
+		<echo>phing test           - test whether everything has run correctly</echo>
+		<echo>phing help           - display this help message</echo>
+		<echo>phing reset          - reset the environment by deleting some output folders as API, Archive</echo>
+		<echo/>
+
+		<echo>---------------------------------------------</echo>
+		<echo>Special task from local to remote</echo>
+		<echo>---------------------------------------------</echo>
+		<echo>phing push           - push some file to the server</echo>
+		<echo>phing deployRemote   - deploy from the the documentation API, Zip to the document root</echo>
+		<echo/>
+
+		<echo>---------------------------------------------</echo>
+		<echo>Possible options</echo>
+		<echo>---------------------------------------------</echo>
+		<echo>-DdryRun=true        - will display the command to be executed</echo>
+		<echo>-Dforce=true          - will force the documentation to be regenerated</echo>
+	</target>
+
+
+	<!-- MAIN RUN -->
+<!--	<target name="build" depends="bootstrap,download,doxygen,phpuml,archive,deploy" />-->
+
+	<!-- BOOTSTRAP -->
+	<target name="bootstrap" description="Bootstrap the system">
+		<echo>Boostrapping environment...</echo>
+		<mkdir dir="${path.build}" />
+		<mkdir dir="${path.source}" />
+		<mkdir dir="${path.build}Temporary" />
+		<mkdir dir="${path.build}Output" />
+		<mkdir dir="${path.build}Logs" />
+		<mkdir dir="${path.build.archive}" />
+		<mkdir dir="${path.build.api}" />
+		<mkdir dir="${path.build.api}TYPO3v4" />
+		<mkdir dir="${path.build.api}Extbase" />
+		<mkdir dir="${path.build.api}Fluid" />
+		<mkdir dir="${path.build.api}FLOW3" />
+		<mkdir dir="${path.www}typo3v4" />
+		<mkdir dir="${path.www}extbase" />
+		<mkdir dir="${path.www}fluid" />
+		<mkdir dir="${path.www}archives" />
+		<mkdir dir="${path.www}flow3" />
+		<echo>-> done</echo>
+	</target>
+
+	<!-- DOWNLOAD SOURCE -->
+	<target name="download" depends="">
+		<echo>----------------------------------------</echo>
+		<echo>| Downloading latest source...         |</echo>
+		<echo>----------------------------------------</echo>
+		<download />
+	</target>
+	
+	<!-- Doxygen API -->
+	<target name="doxygen" depends="">
+		<echo>----------------------------------------</echo>
+		<echo>| Generating Doxygen documentation...      |</echo>
+		<echo>----------------------------------------</echo>
+		<doxygen />
+	</target>
+
+	<!-- PHP UML API -->
+	<target name="phpuml" depends="">
+		<echo>----------------------------------------</echo>
+		<echo>| Generating PHP UML documentation...   |</echo>
+		<echo>----------------------------------------</echo>
+		<phpuml />
+	</target>
+
+	<!-- ARCHIVE API -->
+	<target name="archive" depends="">
+		<echo>----------------------------------------</echo>
+		<echo>| Creating archives...                 |</echo>
+		<echo>----------------------------------------</echo>
+		<archive />
+	</target>
+
+	<!-- PUSH API -->
+	<target name="push" depends="">
+		<echo>----------------------------------------</echo>
+		<echo>| Pushing data...                      |</echo>
+		<echo>----------------------------------------</echo>
+		<commandLocal command="scp -q ${path.build.archive}*.zip ${server.credentials}:${site.remote.directory}www/archives/ "/>
+	</target>
+
+	<!-- RESET API -->
+	<target name="reset" depends="delete,bootstrap" />
+	<target name="delete" depends="">
+		<echo>----------------------------------------</echo>
+		<echo>| Delete somes files...                |</echo>
+		<echo>----------------------------------------</echo>
+
+		<commandLocal command="rm -rf ${path.build.api}"/>
+		<commandLocal command="rm -rf ${path.build.archive}"/>
+	</target>
+
+	<!-- DEPLOY REMOTE -->
+	<target name="deployRemote" depends="">
+		<echo>----------------------------------------</echo>
+		<echo>| Deploying remotely...                 |</echo>
+		<echo>----------------------------------------</echo>
+		<commandRemote credentials="${server.credentials}" command="unzip -qq ${site.remote.directory}www/archives/TYPO3v4-4.5.3.zip "/>
+		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}www/typo3v4/current"/>
+		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/TYPO3v4/4.5.3 ${site.remote.directory}www/typo3v4/current"/>
+
+		<commandRemote credentials="${server.credentials}" command="unzip -qq ${site.remote.directory}www/archives/TYPO3v4-master.zip "/>
+		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}www/typo3v4/master"/>
+		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/TYPO3v4/master ${site.remote.directory}www/typo3v4/master"/>
+
+		<!-- clean up -->
+		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}home/TYPO3v4"/>
+	</target>
+
+
+	<!-- DEPLOY API -->
+	<target name="deploy" depends="">
+		<echo>----------------------------------------</echo>
+		<echo>| Deploying api.typo3.org...            |</echo>
+		<echo>----------------------------------------</echo>
+		<deploy />
+	</target>
+	
+</project>
