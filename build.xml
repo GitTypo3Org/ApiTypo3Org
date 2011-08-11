@@ -6,13 +6,13 @@
 	<property name="force" value="${force}"/>
 	<property name="verbose" value=""/>
 
-	<property name="path.www" value="/Users/fudriot/Sites/WebApplications/api.typo3.org/www/"/>
-	<property name="path.home" value="/Users/fudriot/Sites/WebApplications/api.typo3.org/home/APIBuilder/"/>
-	<property name="path.writable" value="/Users/fudriot/Sites/WebApplications/api.typo3.org.build/"/>
+	<property name="path.home" value="/var/www/vhosts/api.typo3.org/home/APIBuilder/"/>
+	<property name="path.writable" value="/var/www/vhosts/api.typo3.org/home/Storage/"/>
+	<property name="path.www" value="/var/www/vhosts/api.typo3.org/www/"/>
+	
 	<property name="path.build" value="${path.writable}Build/"/>
 	<property name="path.source" value="${path.writable}Source/"/>
-	<property name="command.doyxgen" value="/Applications/doxygen/Doxygen.app/Contents/Resources/doxygen"/>
-
+	<property name="command.doyxgen" value="/usr/bin/doxygen"/>
 
 	<property name="server.credentials" value="api"/>
 	<property name="site.remote.directory" value="/var/www/vhosts/api.typo3.org/"/>
