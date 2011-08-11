@@ -1,17 +1,23 @@
 <?xml version="1.0"?>
 <project name="" basedir="." default="help"  description="Generate the API for TYPO3">
 
+
  	<!-- PROPERTIES DECLARATION -->
 	<property name="dryRun" value="${dryRun}"/>
 	<property name="force" value="${force}"/>
 	<property name="verbose" value=""/>
 
+
+ 	<!-- make sure the file exist with the appropriate configuration -->
+	<import file="build.configuration.xml"/>
+	
+	<!-- this configuration should be put in configuration -->
 	<property name="path.home" value="/var/www/vhosts/api.typo3.org/home/APIBuilder/"/>
-	<property name="path.writable" value="/var/www/vhosts/api.typo3.org/home/Storage/"/>
+	<property name="path.storage" value="/var/www/vhosts/api.typo3.org/home/Storage/"/>
 	<property name="path.www" value="/var/www/vhosts/api.typo3.org/www/"/>
 	
-	<property name="path.build" value="${path.writable}Build/"/>
-	<property name="path.source" value="${path.writable}Source/"/>
+	<property name="path.build" value="${path.storage}Build/"/>
+	<property name="path.source" value="${path.storage}Source/"/>
 	<property name="command.doyxgen" value="/usr/bin/doxygen"/>
 
 	<property name="server.credentials" value="api"/>
@@ -20,9 +26,9 @@
 <!--
 	<property name="path.www" value="/var/www/vhosts/api.typo3.org/www/"/>
 	<property name="path.home" value="/var/www/vhosts/api.typo3.org/home/APIBuilder/"/>
-	<property name="path.writable" value="/var/www/vhosts/api.typo3.org/home"/>
-	<property name="path.build" value="${path.writable}Build/"/>
-	<property name="path.source" value="${path.writable}Source/"/>
+	<property name="path.storage" value="/var/www/vhosts/api.typo3.org/home"/>
+	<property name="path.build" value="${path.storage}Build/"/>
+	<property name="path.source" value="${path.storage}Source/"/>
 	<property name="command.doyxgen" value="/usr/bin/doxygen"/>
 -->
 	<property name="path.build.archive" value="${path.build}Output/Zip/"/>
@@ -33,7 +39,7 @@
 
 	<!-- FILE SET -->
 	<path id="phingClasses">
-		<pathelement dir="${path.home}Classes/"/>
+		<pathelement dir="Classes/"/>
 	</path>
 
 	<!-- TASK DEFINITION -->
@@ -47,7 +53,8 @@
 	<taskdef name="commandLocal" classname="CommandLocal" classpathref="phingClasses"/>
 
 	<target name="help">
-		<echo>---------------------------------------------</echo>
+	
+		<echo>${path.storage}---------------------------------------------</echo>
 		<echo>Usage of this Phing</echo>
 		<echo>---------------------------------------------</echo>
 		<echo>phing build          - build the API by calling all the necessary ants: bootstrap, download, doxygen, phpuml, zip, deploy</echo>
@@ -79,6 +86,7 @@
 
 	<!-- MAIN RUN -->
 <!--	<target name="build" depends="bootstrap,download,doxygen,phpuml,archive,deploy" />-->
+	<target name="build-phpuml" depends="bootstrap,download,phpuml,archive,deploy" />
 
 	<!-- BOOTSTRAP -->
 	<target name="bootstrap" description="Bootstrap the system">
