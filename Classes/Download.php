@@ -59,12 +59,12 @@ class Download extends BaseTask {
 		$sourcePath = $this->sourcePath . $datasource['folderName'] . '/master/';
 		if (!is_dir($sourcePath)) {
 			$commands[] = 'git clone --recursive --quiet ' . $datasource['repository'] . ' ' . $sourcePath;
-			$commands[] = 'git submodule update --init';
 		}
 
 		$commands[] = 'cd ' . $sourcePath . '; git checkout master --quiet';
 		$commands[] = 'cd ' . $sourcePath . '; git pull --quiet';
 		$commands[] = 'cd ' . $sourcePath . '; git fetch --tags --quiet';
+		$commands[] = 'cd ' . $sourcePath . '; git submodule update --quiet';
 
 		return $commands;
 	}
