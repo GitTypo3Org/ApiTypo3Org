@@ -30,6 +30,24 @@ require_once('BaseTask.php');
 class PHPUML extends BaseTask {
 
 	/**
+	 *
+	 * @var string
+	 */
+	protected $source = '';
+	
+	/**
+	 *
+	 * @var string
+	 */
+	protected $target = '';
+	
+	/**
+	 *
+	 * @var string
+	 */
+	protected $tagName = '';
+	
+	/**
 	 * should the documentation be re-generated
 	 *
 	 * @var boolean
@@ -45,131 +63,60 @@ class PHPUML extends BaseTask {
 
 		// Initialize task
 		$this->initialize();
+		$this->log('generating PHP UML API...');
+		
+		$outputPath = $this->source;
 
-		foreach ($this->sources as $source) {
-
-			if ($source['api'] == 'phpuml') {
-				$tags = $this->getTags($source);
-
-				foreach ($tags as $tag) {
-					$commands = $this->generate($source, $tag);
-					if (!empty($commands)) {
-
-						$sourcePath = $this->sourcePath . $source['folderName'] . '/master/';
-
-						$command = 'cd ' . $sourcePath . '; git checkout --quiet ' . $tag;
-						array_unshift($commands, $command);
-						$this->log('generating PHP UML documentation for ' . $source['name'] . ' ' . $this->getProjectNumber($tag));
-						$this->execute($commands);
-					}
-				}
-			}
-		}
+		$command = '';
+		$command .= 'require_once( "' . $this->homePath . 'Libraries/PHP_UML/UML.php");';
+		$command .= 'mkdir("' . $outputPath . '");';
+		$command .= '$renderer = new PHP_UML();';
+		$command .= '$renderer->deploymentView = FALSE;';
+		$command .= '$renderer->onlyApi = TRUE;';
+		$command .= '$renderer->structureFromDocblocks = TRUE;';
+		#$command .= '$renderer->completeAPI = FALSE;';
+		$command .= '$renderer->setInput(array("' . $outputPath . '"));';
+		$command .= '$renderer->parse("' . $this->tagName . '");';
+		$command .= '$renderer->generateXMI(2.1, "utf-8");';
+		$command .= '$renderer->export("html", "' . $outputPath . '");';
+		$commands[] = "php -r '" . $command . "'";
+		
+		$this->execute($commands);
 	}
 
-	/**
-	 * Get Tags name
+	// -------------------------------
+    // Set properties from XML
+    // -------------------------------
+
+    /**
+     * Setter for source
 	 *
-	 * @param array $source the project data source
-	 * @return array
-	 */
-	protected function getTags($source) {
-		$tags = array('master');
+     * @param string $source
+     * @return void
+     */
+    public function setSource($source){
+        $this->source = $source;
+    }
 
-		$command = 'cd ' . $this->sourcePath . $source['folderName'] . '/master ; git tag';
-		exec($command, $result);
-		foreach ($result as $tag) {
-			if (preg_match('/([0-9]\.[0-9]\.[0-9])$/is', $tag, $match)) {
-				$version = $match[0];
-				$numberOfVersion = str_replace('.', '', $match[1]);
-				$version = $match[0];
-
-				// possible minium version
-				if (!empty($source['minimumVersion'])) {
-					if ($numberOfVersion >= $source['minimumVersion']) {
-						$tags[] = $version;
-					}
-				} else {
-					$tags[] = $version;
-				}
-			}
-		}
-		return $tags;
-	}
-
-	/**
-	 * Generate Doxygen commands that will be executed later on.
+    /**
+     * Setter for target
 	 *
-	 * @param array $source the project data source
-	 * @param string $tag the tag of the source
-	 * @return array the commands to be executed
-	 */
-	protected function generate($source, $tag) {
-		$commands = array();
-		$template = new Template($this->homePath . 'Resources/Private/Templates/doxygen.php');
-
-		$outputPath = $this->getOutputPath($source, $tag);
-
-		if (!is_dir($outputPath) || $this->force) {
-
-			$command = '';
-			$command .= 'require_once( "' . $this->homePath . 'Libraries/PHP_UML/UML.php");';
-			$command .= 'mkdir("' . $outputPath . '");';
-			$command .= '$renderer = new PHP_UML();';
-			$command .= '$renderer->deploymentView = FALSE;';
-			$command .= '$renderer->onlyApi = TRUE;';
-			$command .= '$renderer->structureFromDocblocks = TRUE;';
-			#$command .= '$renderer->completeAPI = FALSE;';
-			$command .= '$renderer->setInput(array("' . $this->sourcePath . $source['folderName'] . '/master"));';
-			$command .= '$renderer->parse("' . $this->getProjectNumber($tag) . '");';
-			$command .= '$renderer->generateXMI(2.1, "utf-8");';
-			$command .= '$renderer->export("html", "' . $outputPath . '");';
-			$commands[] = "php -r '" . $command . "'";
-		}
-
-		return $commands;
-	}
-
-	/**
-	 * Returns the input path
+     * @param string $target
+     * @return void
+     */
+    public function setTarget($target){
+        $this->target = $target;
+    }
+	
+    /**
+     * Setter for tagName
 	 *
-	 * @param string $segment a segment path containing the number of version
-	 * @return string
-	 */
-	protected function getProjectNumber($segment) {
-		$searches[] = $this->sourcePath;
-		$searches[] = 'TYPO3_';
-		$searches[] = 'TYPO3';
-		$searches[] = '-';
-		$searches[] = '/';
-		$searches[] = 'v4';
-
-		$replaces[] = '';
-		$replaces[] = '';
-		$replaces[] = '';
-		$replaces[] = '.';
-		$replaces[] = ' ';
-		$replaces[] = '';
-		return str_replace($searches, $replaces, $segment);
-	}
-
-	/**
-	 * Returns the output path
-	 *
-	 * @param array $source the project data source
-	 * @param string $segment a segment path containing the number of version
-	 * @return string
-	 */
-	protected function getOutputPath($source, $segment) {
-		$searches[] = $this->sourcePath;
-		$searches[] = 'TYPO3_';
-		$searches[] = '-';
-		$replaces[] = '';
-		$replaces[] = '';
-		$replaces[] = '.';
-		return $this->apiPath . $source['folderName'] . '/' . str_replace($searches, $replaces, $segment);
-	}
-
+     * @param string $tagName
+     * @return void
+     */
+    public function setTagName($tagName){
+        $this->tagName = $tagName;
+    }
 }
 
 ?>
