@@ -3,11 +3,12 @@
 
 
 	<!--
-		@todo: changed typo3_src to typo3_src
-		@todo: changed typo3v4 to the new name
+		@todo: rename typo3_src to typo3_src
+		@todo: rename typo3v4 to the new name
 		@todo: add FLOW3 beta1
-		@todo: remove old Tasks
+		@todo: remove old Tasks in this phing
 		@todo: perhaps some source / target attribute can be computed with project environment variables
+		@todo: clean up server "archive" + "Source folder" can be deleted to regenerate the environment
 	-->
 	
  	<!-- PROPERTIES DECLARATION -->
