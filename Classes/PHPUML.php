@@ -69,7 +69,7 @@ class PHPUML extends BaseTask {
 
 		$command = '';
 		$command .= 'require_once( "' . $this->homePath . 'Libraries/PHP_UML/UML.php");';
-		$command .= 'mkdir("' . $outputPath . '");';
+		$command .= 'mkdir("' . $this->target . '");';
 		$command .= '$renderer = new PHP_UML();';
 		$command .= '$renderer->deploymentView = FALSE;';
 		$command .= '$renderer->onlyApi = TRUE;';
@@ -78,7 +78,7 @@ class PHPUML extends BaseTask {
 		$command .= '$renderer->setInput(array("' . $outputPath . '"));';
 		$command .= '$renderer->parse("' . $this->tagName . '");';
 		$command .= '$renderer->generateXMI(2.1, "utf-8");';
-		$command .= '$renderer->export("html", "' . $outputPath . '");';
+		$command .= '$renderer->export("html", "' . $this->target . '");';
 		$commands[] = "php -r '" . $command . "'";
 		
 		$this->execute($commands);

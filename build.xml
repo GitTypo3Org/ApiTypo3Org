@@ -2,6 +2,14 @@
 <project name="" basedir="." default="help"  description="Generate the API for TYPO3">
 
 
+	<!--
+		@todo: changed typo3_src to typo3_src
+		@todo: changed typo3v4 to the new name
+		@todo: add FLOW3 beta1
+		@todo: remove old Tasks
+		@todo: perhaps some source / target attribute can be computed with project environment variables
+	-->
+	
  	<!-- PROPERTIES DECLARATION -->
 	<property name="dryRun" value="${dryRun}"/>
 	<property name="force" value="${force}"/>
@@ -60,7 +68,7 @@
 		<echo>Usage for PHPUML Documentation</echo>
 		<echo>---------------------------------------------</echo>
 		<echo>phing flow3-master</echo>
-		<echo>phing extbase-1-3</echo>
+		<echo>phing extbase-1.3</echo>
 		<echo/>
 
 		<echo>---------------------------------------------</echo>
@@ -173,6 +181,7 @@
 	<import file="Phing/typo3-master.xml"/>
 	<import file="Phing/typo3-4.5.xml"/>
 	<import file="Phing/typo3-4.4.xml"/>
+	<import file="Phing/typo3-4.3.xml"/>
 	<import file="Phing/extbase-1.3.xml"/>
 
 </project>
