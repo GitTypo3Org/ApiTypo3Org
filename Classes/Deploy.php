@@ -28,6 +28,30 @@
 require_once('BaseTask.php');
 
 class Deploy extends BaseTask {
+	
+	/**
+	 *
+	 * @var boolean
+	 */
+	protected $current = FALSE;
+	
+	/**
+	 *
+	 * @var string
+	 */
+	protected $version = '';
+	
+	/**
+	 *
+	 * @var string
+	 */
+	protected $deployPath = '';
+	
+	/**
+	 *
+	 * @var string
+	 */
+	protected $deployPathName = '';
 
 	/**
 	 * Prepare commands to generate API. Assumes Doxygen will be used to generate the API for now.
@@ -38,73 +62,67 @@ class Deploy extends BaseTask {
 
 		// Initialize task
 		$this->initialize();
-
 		$this->log('deploying documentation...');
 
 		// Update the ZIP repository
-		$commands[] = 'rsync -a ' . $this->buildPath . 'Temporary/master.conf ' . $this->wwwPath . 'sample.conf';
-		$commands[] = 'rsync -a --delete ' . $this->archivePath . ' ' . $this->wwwPath . 'archives';
 		$commands[] = 'echo "Options +Indexes -FollowSymLinks -Includes" > ' . $this->wwwPath . 'archives/.htaccess';
+		
+		$archiveFile = $this->archivePath . $this->version . '.zip';
+		$commands[] = 'rsync -a ' . $archiveFile . ' ' . $this->wwwPath . 'archives';
+		
+		
+		$apiDirectory = $this->apiPath . $this->version;
+		$commands[] = 'rsync -a --delete ' . $apiDirectory . '/ ' . $this->wwwPath . $this->deployPath . '/' . $this->deployPathName;
 
-		// Update the API repository
-		$projects = glob($this->apiPath . '*');
-
-		foreach ($projects as $project) {
-			// Reset variable
-			$projectName = '';
-			$versions = glob($project . '/*');
-
-			// extract the master version which is the lastest version in the folder
-			$trunkVersion = array_pop($versions);
-			preg_match('/([\w]+)\/master$/is', $trunkVersion, $matches);
-
-			if (!empty($matches[1])) {
-				$projectName = strtolower($matches[1]);
-				$commands[] = 'rsync -a --delete ' . $trunkVersion . '/ ' . $this->wwwPath . $projectName . '/master';
-			}
-
-			$deployedVersions = array();
-			$versionNumber = '';
-			foreach (array_reverse($versions) as $version) {
-				preg_match('/[\w]+\/([0-9]+)\.([0-9]+)\.([0-9]+)$/is', $version, $matches);
-				$versionNumberToTest = $matches[1] . $matches[2];
-				if (!$versionNumber || $versionNumber != $versionNumberToTest) {
-					$deployedVersions[$versionNumberToTest] = $version;
-					$versionNumber = $versionNumberToTest;
-				}
-			}
-
-			$isFirst = TRUE;
-			foreach ($deployedVersions as $versionNumber => $version) {
-				if ($isFirst) {
-
-					$commands[] = 'rsync -a --delete ' . $version . '/ ' . $this->wwwPath . $projectName . '/current';
-					$isFirst = FALSE;
-				}
-				$commands[] = 'rsync -a --delete ' . $version . '/ ' . $this->wwwPath . $projectName . '/' . $versionNumber;
-			}
+		if ($this->current) {
+			$commands[] = 'rsync -a --delete ' . $apiDirectory . '/ ' . $this->wwwPath . $this->deployPath . '/current';
 		}
 
 		$this->execute($commands);
 	}
 
-	/**
-	 * Returns the zip file
-	 *
-	 * @param string $segment a segment path containing the number of version
-	 * @return string
-	 */
-	protected function getZipPath($segment) {
-		$searches[] = $this->outputPath;
-		$searches[] = 'TYPO3_';
-		$searches[] = '-';
-		$searches[] = '/';
+	// -------------------------------
+	// Set properties from XML
+	// -------------------------------
 
-		$replaces[] = '';
-		$replaces[] = '';
-		$replaces[] = '.';
-		$replaces[] = '-';
-		return $this->archivePath . str_replace($searches, $replaces, $segment) . '.zip';
+	/**
+	 * Setter for version
+	 *
+	 * @param string $version
+	 * @return void
+	 */
+	public function setVersion($version) {
+		$this->version = $version;
+	}
+
+	/**
+	 * Setter for deployPath
+	 *
+	 * @param string $deployPath
+	 * @return void
+	 */
+	public function setDeployPath($deployPath) {
+		$this->deployPath = $deployPath;
+	}
+	
+	/**
+	 * Setter for deployPathName
+	 *
+	 * @param string $deployPathName
+	 * @return void
+	 */
+	public function setDeployPathName($deployPathName) {
+		$this->deployPathName = $deployPathName;
+	}
+	
+	/**
+	 * Setter for current
+	 *
+	 * @param string $current
+	 * @return void
+	 */
+	public function setCurrent($current) {
+		$this->current = $current;
 	}
 
 }

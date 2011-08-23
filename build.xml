@@ -15,11 +15,11 @@
 	<property name="path.home" value="foo/APIBuilder/"/>
 	<property name="path.storage" value="foo/Storage/"/>
 	<property name="path.www" value="foo/www/"/>
+	<property name="command.doyxgen" value="/usr/bin/doxygen"/>
 	-->
 	
 	<property name="path.build" value="${path.storage}Build/"/>
 	<property name="path.source" value="${path.storage}Source/"/>
-	<property name="command.doyxgen" value="/usr/bin/doxygen"/>
 
 	<property name="server.credentials" value="api"/>
 	<property name="site.remote.directory" value="/var/www/vhosts/api.typo3.org/"/>
@@ -32,8 +32,9 @@
 	<property name="path.source" value="${path.storage}Source/"/>
 	<property name="command.doyxgen" value="/usr/bin/doxygen"/>
 -->
-	<property name="path.build.archive" value="${path.build}Output/Zip/"/>
-	<property name="path.build.api" value="${path.build}Output/Api/"/>
+	<property name="path.build.archive" value="${path.build}Zip/"/>
+	<property name="path.build.api" value="${path.build}Api/"/>
+	<property name="path.temporary" value="${path.storage}Temporary/"/>
 
 
 	<!-- RUNNING VARIABLES -->
@@ -58,6 +59,13 @@
 		<echo>---------------------------------------------</echo>
 		<echo>Usage of this Phing</echo>
 		<echo>---------------------------------------------</echo>
+		<echo>phing typo3-4-5</echo>
+		<echo>phing deploy-typo3-4-5</echo>
+		<echo/>
+		
+		<echo>---------------------------------------------</echo>
+		<echo>Obsolete Targets</echo>
+		<echo>---------------------------------------------</echo>
 		<echo>phing build          - build the API by calling all the necessary ants: bootstrap, download, doxygen, phpuml, zip, deploy</echo>
 		<echo>phing bootstrap      - prepare the environment </echo>
 		<echo>phing download       - download sources related to different projects linked with TYPO3</echo>
@@ -70,12 +78,6 @@
 		<echo>phing reset          - reset the environment by deleting some output folders as API, Archive</echo>
 		<echo/>
 
-		<echo>---------------------------------------------</echo>
-		<echo>Special task from local to remote</echo>
-		<echo>---------------------------------------------</echo>
-		<echo>phing push           - push some file to the server</echo>
-		<echo>phing deployRemote   - deploy from the the documentation API, Zip to the document root</echo>
-		<echo/>
 
 		<echo>---------------------------------------------</echo>
 		<echo>Possible options</echo>
@@ -91,22 +93,23 @@
 
 	<!-- BOOTSTRAP -->
 	<target name="bootstrap" description="Bootstrap the system">
-		<echo>Boostrapping environment...</echo>
+		<echo>----------------------------------------</echo>
+		<echo>| Boostrapping environment...           |</echo>
+		<echo>----------------------------------------</echo>
 		<mkdir dir="${path.build}" />
 		<mkdir dir="${path.source}" />
-		<mkdir dir="${path.build}Temporary" />
-		<mkdir dir="${path.build}Output" />
-		<mkdir dir="${path.build}Logs" />
+		<mkdir dir="${path.temporary}" />
+		<mkdir dir="${path.storage}Logs" />
 		<mkdir dir="${path.build.archive}" />
 		<mkdir dir="${path.build.api}" />
-		<mkdir dir="${path.build.api}Extbase" />
+<!--		<mkdir dir="${path.build.api}Extbase" />
 		<mkdir dir="${path.build.api}Fluid" />
-		<mkdir dir="${path.build.api}FLOW3" />
+		<mkdir dir="${path.build.api}FLOW3" />-->
 		<mkdir dir="${path.www}extbase" />
 		<mkdir dir="${path.www}fluid" />
 		<mkdir dir="${path.www}archives" />
 		<mkdir dir="${path.www}flow3" />
-		<echo>-> done</echo>
+		<echo>OK</echo>
 	</target>
 
 	<!-- DOWNLOAD SOURCE -->
@@ -141,14 +144,6 @@
 		<archive />
 	</target>
 
-	<!-- PUSH API -->
-	<target name="push" depends="">
-		<echo>----------------------------------------</echo>
-		<echo>| Pushing data...                      |</echo>
-		<echo>----------------------------------------</echo>
-		<commandLocal command="scp -q ${path.build.archive}*.zip ${server.credentials}:${site.remote.directory}www/archives/ "/>
-	</target>
-
 	<!-- RESET API -->
 	<target name="reset" depends="delete,bootstrap" />
 	<target name="delete" depends="">
@@ -160,24 +155,6 @@
 		<commandLocal command="rm -rf ${path.build.archive}"/>
 	</target>
 
-	<!-- DEPLOY REMOTE -->
-	<target name="deployRemote" depends="">
-		<echo>----------------------------------------</echo>
-		<echo>| Deploying remotely...                 |</echo>
-		<echo>----------------------------------------</echo>
-		<commandRemote credentials="${server.credentials}" command="unzip -qq ${site.remote.directory}www/archives/TYPO3v4-4.5.3.zip "/>
-		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}www/typo3v4/current"/>
-		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/TYPO3v4/4.5.3 ${site.remote.directory}www/typo3v4/current"/>
-
-		<commandRemote credentials="${server.credentials}" command="unzip -qq ${site.remote.directory}www/archives/TYPO3v4-master.zip "/>
-		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}www/typo3v4/master"/>
-		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/TYPO3v4/master ${site.remote.directory}www/typo3v4/master"/>
-
-		<!-- clean up -->
-		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}home/TYPO3v4"/>
-	</target>
-
-
 	<!-- DEPLOY API -->
 	<target name="deploy" depends="">
 		<echo>----------------------------------------</echo>
@@ -186,13 +163,74 @@
 		<deploy />
 	</target>
 	
-	<target name="typo3-4-5" depends="">
+	
+	
+	<!-- ************************************ -->
+	<!--              TYPO3 4.5               -->
+	<!-- ************************************ -->
+	<target name="typo3-4-5" depends="bootstrap">
 		<echo>----------------------------------------</echo>
-		<echo>| Deploying TYPO3 4.5                   |</echo>
+		<echo>| Generating TYPO3 4.5 API              |</echo>
 		<echo>----------------------------------------</echo>
-		<mkdir dir="${path.build.api}TYPO3v4" />
+		
+		<property name="version" value="typo3_src-4.5"/>
+		<property name="tagName" value="TYPO3_4-5-5"/>
+		<property name="tagNameDisplay" value="4.5.5"/>
+		<property name="deployPath" value="typo3v4"/>
+		<property name="deployPathName" value="45"/>
+		<property name="repository" value="git://git.typo3.org/TYPO3v4/Core.git"/>
+		
+		<!-- Initialize the environment -->
+		<mkdir dir="${path.build.api}${version}" />
 		<mkdir dir="${path.www}typo3v4" />
-		<deploy />
+		
+		<!-- Reset the repository (optional) -->
+		<!-- <delete dir="${path.source}${version}" /> -->
+		<download repository="${repository}" target="${path.source}${version}" tagName="${tagName}" submoduleDirectory="${path.source}${version}/typo3/sysext" />
+		
+		<!-- Reset the API (recommanded) -->
+		<delete dir="${path.build.api}${version}" />
+		<delete>
+			<fileset dir="${path.temporary}">
+				<include name="*.conf" />
+			</fileset>
+		</delete>
+		<!-- Generate the Doxygen API -->
+		<doxygen source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
+		
+		<!-- Archive -->
+		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />
+		
+		<!-- Deploy -->
+		<deploy version="${version}" deployPath="${deployPath}" deployPathName="${deployPathName}" current="true"/>
+		
+		<echo>OK</echo>
+	</target>
+	
+	
+	<!-- DEPLOY REMOTE -->
+	<target name="deploy-typo3-4-5" depends="">
+		<echo>----------------------------------------</echo>
+		<echo>| Deploying remotely TYPO3 4.5 API      |</echo>
+		<echo>----------------------------------------</echo>
+		
+		<property name="version" value="typo3_src-4.5"/>
+		<property name="tagName" value="TYPO3_4-5-5"/>
+		<property name="tagNameDisplay" value="4.5.5"/>
+		<property name="deployPath" value="typo3v4"/>
+		<property name="deployPathName" value="45"/>
+		
+		<!-- Copy the archive to the server -->
+		<commandLocal command="scp -q ${path.build.archive}${version}.zip ${server.credentials}:${site.remote.directory}www/archives/ "/>
+		
+		<!-- Decompress the archive to the server -->
+		<commandRemote credentials="${server.credentials}" command="unzip -qq ${site.remote.directory}www/archives/${version}.zip "/>
+		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/${version} ${site.remote.directory}www/typo3v4/${deployPathName}"/>
+		
+		<commandRemote credentials="${server.credentials}" command="unzip -qq ${site.remote.directory}www/archives/${version}.zip "/>
+		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/${version} ${site.remote.directory}www/typo3v4/current"/>
+		
+		<echo>OK</echo>
 	</target>
 	
 </project>

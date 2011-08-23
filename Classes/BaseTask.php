@@ -94,9 +94,9 @@ abstract class BaseTask extends Task {
 		$this->homePath = $this->properties['path.home'];
 		$this->buildPath = str_replace('${path.storage}', $this->project->getProperty('path.storage') , $this->properties['path.build']);
 		$this->sourcePath = str_replace('${path.storage}', $this->project->getProperty('path.storage') , $this->properties['path.source']);
-		$this->temporaryPath = $this->buildPath . 'Temporary/';
-		$this->apiPath = $this->buildPath . 'Output/Api/';
-		$this->archivePath = $this->buildPath . 'Output/Zip/';
+		$this->temporaryPath = str_replace('${path.storage}', $this->project->getProperty('path.storage') , $this->properties['path.temporary']);
+		$this->apiPath = $this->buildPath . 'Api/';
+		$this->archivePath = $this->buildPath . 'Zip/';
 
 		// Set boolean
 		if ($this->properties['dryRun'] === 'true' || $this->properties['dryRun'] === TRUE) {
@@ -123,14 +123,14 @@ abstract class BaseTask extends Task {
 				'api' => 'phpuml',
 				'minimumVersion' => '',
 			),
-			array(
-				'name' => 'TYPO3',
-				'label' => 'TYPO3 v4',
-				'folderName' => 'TYPO3v4',
-				'repository' => 'git://git.typo3.org/TYPO3v4/Core.git',
-				'api' => 'doxygen',
-				'minimumVersion' => '453',
-			),
+//			array(
+//				'name' => 'TYPO3',
+//				'label' => 'TYPO3 v4',
+//				'folderName' => 'TYPO3v4',
+//				'repository' => 'git://git.typo3.org/TYPO3v4/Core.git',
+//				'api' => 'doxygen',
+//				'minimumVersion' => '453',
+//			),
 			array(
 				'name' => 'Extbase',
 				'label' => 'Extbase',
