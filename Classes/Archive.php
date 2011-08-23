@@ -1,4 +1,5 @@
 <?php
+
 /* * *************************************************************
  *  Copyright notice
  *
@@ -27,6 +28,24 @@
 require_once('BaseTask.php');
 
 class Archive extends BaseTask {
+	
+	/**
+	 *
+	 * @var string
+	 */
+	protected $source = '';
+	
+	/**
+	 *
+	 * @var string
+	 */
+	protected $target = '';
+	
+	/**
+	 *
+	 * @var string
+	 */
+	protected $version = '';
 
 	/**
 	 * Prepare commands to generate API. At the moment, assumes Doxygen will be used to generate the API.
@@ -37,81 +56,53 @@ class Archive extends BaseTask {
 
 		// Initialize task
 		$this->initialize();
+		$this->log('Creating archive...');
 
-		foreach ($this->sources as $source) {
-
-			$apiFolder = $this->apiPath . $source['folderName'] . '/';
-
-			if (is_dir($apiFolder)) {
-
-				$versions = glob($apiFolder . '*');
-				foreach ($versions as $version) {
-					$zipFile = $this->getZipPath($version);
-					if (!is_file($zipFile) || $this->force) {
-						$this->log("compressing documentation of " . $source['label'] . " " . $this->getVersion($source, $version) . "...");
-						$command = 'rm -f ' . $zipFile . '; cd ' . $this->apiPath . ';zip -rq ' . $zipFile . ' ' . $this->getVersionToZip($version);
-						$this->execute($command);
-					}
-				}
-			}
-		}
+		$archiveFile = $this->target . $this->version . '.zip';
+		$sourceDirectory = $this->source . $this->version;
+		$command = 'rm -f ' . $archiveFile . '; cd ' . $this->apiPath . ';zip -rq ' . $archiveFile . ' ' . $this->version;
+		$this->execute($command);
 
 		// Sometimes ghost files are created -> removes them
-		$commands = array();
-		$commands[] = 'mv ' . $this->archivePath . '*.zip ' . $this->temporaryPath;
-		$commands[] = 'rm -f ' . $this->archivePath . '*';
-		$commands[] = 'mv ' . $this->temporaryPath . '*.zip ' . $this->archivePath;
-		$this->execute($commands);
+		#$commands = array();
+		#$commands[] = 'mv ' . $this->archivePath . '*.zip ' . $this->temporaryPath;
+		#$commands[] = 'rm -f ' . $this->archivePath . '*';
+		#$commands[] = 'mv ' . $this->temporaryPath . '*.zip ' . $this->archivePath;
+		#$this->execute($commands);
+	}
+
+	// -------------------------------
+	// Set properties from XML
+	// -------------------------------
+
+	/**
+	 * Setter for source
+	 *
+	 * @param string $source
+	 * @return void
+	 */
+	public function setSource($source) {
+		$this->source = $source;
 	}
 
 	/**
-	 * Returns the zip file
+	 * Setter for target
 	 *
-	 * @param string $segment a segment path containing the number of version
-	 * @return string
+	 * @param string $target
+	 * @return void
 	 */
-	protected function getZipPath($segment) {
-		$searches[] = $this->apiPath;
-		$searches[] = 'TYPO3_';
-		$searches[] = '-';
-		$searches[] = '/';
-
-		$replaces[] = '';
-		$replaces[] = '';
-		$replaces[] = '.';
-		$replaces[] = '-';
-		return $this->archivePath . str_replace($searches, $replaces, $segment) . '.zip';
+	public function setTarget($target) {
+		$this->target = $target;
 	}
 
 	/**
-	 * Returns the zip file
+	 * Setter for version
 	 *
-	 * @param string $segment a segment path containing the number of version
-	 * @return string
+	 * @param string $version
+	 * @return void
 	 */
-	protected function getVersionToZip($segment) {
-		$searches[] = $this->apiPath;
-
-		$replaces[] = '';
-		return str_replace($searches, $replaces, $segment);
-	}
-
-	/**
-	 * Returns the zip file
-	 *
-	 * @param array $source
-	 * @param string $segment a segment path containing the number of version
-	 * @return string
-	 */
-	protected function getVersion($source, $segment) {
-		$searches[] = $this->apiPath;
-		$searches[] = $source['folderName'];
-		$searches[] = '/';
-
-		$replaces[] = '';
-		$replaces[] = '';
-		$replaces[] = '';
-		return str_replace($searches, $replaces, $segment);
+	public function setVersion($version) {
+		$this->version = $version;
 	}
 
 }

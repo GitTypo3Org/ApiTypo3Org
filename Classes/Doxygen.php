@@ -29,7 +29,26 @@ require_once('BaseTask.php');
 require_once(__DIR__ . '/../Libraries/Template.php');
 
 class Doxygen extends BaseTask {
-
+	
+	/**
+	 *
+	 * @var string
+	 */
+	protected $source = '';
+	
+	/**
+	 *
+	 * @var string
+	 */
+	protected $target = '';
+	
+	/**
+	 *
+	 * @var string
+	 */
+	protected $tagName = '';
+	
+	
 	/**
 	 * Prepare commands to generate API. At the moment, assumes Doxygen will be used to generate the API.
 	 *
@@ -39,134 +58,28 @@ class Doxygen extends BaseTask {
 
 		// Initialize task
 		$this->initialize();
-
-		foreach ($this->sources as $source) {
-
-			if ($source['api'] == 'doxygen') {
-
-				$tags = $this->getTags($source);
-
-				foreach ($tags as $tag) {
-					$commands = $this->generate($source, $tag);
-					if (!empty($commands)) {
-
-						$sourcePath = $this->sourcePath . $source['folderName'] . '/master/';
-
-						$command = 'cd ' . $sourcePath . '; git checkout --quiet ' . $tag;
-						array_unshift($commands, $command);
-						$this->log('generating Doxygen documentation for ' . $source['name'] . ' ' . $this->getProjectNumber($tag));
-						$this->execute($commands);
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * Get Tags name
-	 *
-	 * @param array $source the project data source
-	 * @return array
-	 */
-	protected function getTags($source) {
-		$tags = array('master');
-
-		$command = 'cd ' . $this->sourcePath . $source['folderName'] . '/master ; git tag';
-		exec($command, $result);
-		foreach ($result as $tag) {
-			if (preg_match('/' . $source['name'] . '_([0-9]-[0-9]-[0-9])$/is', $tag, $match)) {
-				$version = $match[0];
-				$numberOfVersion = str_replace('-', '', $match[1]);
-				$version = $match[0];
-
-				// possible minium version
-				if (!empty($source['minimumVersion'])) {
-					if ($numberOfVersion >= $source['minimumVersion']) {
-						$tags[] = $version;
-					}
-				} else {
-					$tags[] = $version;
-				}
-			}
-		}
-		return $tags;
-	}
-
-	/**
-	 * Generate Doxygen commands that will be executed later on.
-	 *
-	 * @param array $source the project data source
-	 * @param string $tag the tag of the source
-	 * @return array the commands to be executed
-	 */
-	protected function generate($source, $tag) {
+		$this->log('generating Doxygen API...');
+		
 		$commands = array();
 		$template = new Template($this->homePath . 'Resources/Private/Templates/doxygen.php');
 
-		$outputPath = $this->getOutputPath($source, $tag);
+		// computes path
+		$template->set('outputPath', $this->target);
+		$template->set('inputPath', $this->source);
+		$template->set('excludePath', $this->getExcludePath($this->source));
+		$template->set('projectNumber', $this->tagName);
+		$template->set('projectLogo', $this->homePath . 'Resources/Public/Images/logo.png');
 
-		if (!is_dir($outputPath) || $this->force) {
+		// computes configuration file name
+		$doxygenFile = $this->temporaryPath . $this->tagName . '.conf';
 
-			// computes path
-			$template->set('outputPath', $outputPath);
-			$template->set('inputPath', $this->getInputPath($source));
-			$template->set('excludePath', $this->getExcludePath($source));
-			$template->set('projectNumber', $this->getProjectNumber($tag));
-			$template->set('projectLogo', $this->homePath . 'Resources/Public/Images/logo.png');
+		$content = $template->fetch();
+		file_put_contents($doxygenFile, $content);
 
-			// computes configuration file name
-			$filePath = $this->getFilePath($tag);
+		$commands[] = $this->doxygenCommand . ' ' . $doxygenFile;
+		$commands[] = 'cp ' . $this->homePath . 'Resources/Private/Templates/redirect.php ' . $this->target . '/index.php';
 
-			$content = $template->fetch();
-			file_put_contents($filePath, $content);
-
-			$commands[] = $this->doxygenCommand . ' ' . $filePath;
-			$commands[] = 'cp ' . $this->homePath . 'Resources/Private/Templates/redirect.php ' . $outputPath . '/index.php';
-		}
-
-		return $commands;
-	}
-
-	/**
-	 * Returns the input path
-	 *
-	 * @param string $segment a segment path containing the number of version
-	 * @return string
-	 */
-	protected function getProjectNumber($segment) {
-		$searches[] = $this->sourcePath;
-		$searches[] = 'TYPO3_';
-		$searches[] = 'TYPO3';
-		$searches[] = '-';
-		$searches[] = '/';
-		$searches[] = 'v4';
-
-		$replaces[] = '';
-		$replaces[] = '';
-		$replaces[] = '';
-		$replaces[] = '.';
-		$replaces[] = ' ';
-		$replaces[] = '';
-		return str_replace($searches, $replaces, $segment);
-	}
-
-	/**
-	 * Returns the input path
-	 *
-	 * @param string $segment a segment path containing the number of version
-	 * @return string
-	 */
-	protected function getFilePath($segment) {
-		$searches[] = $this->sourcePath;
-		$searches[] = 'TYPO3_';
-		$searches[] = '-';
-		$searches[] = '/';
-
-		$replaces[] = '';
-		$replaces[] = '';
-		$replaces[] = '.';
-		$replaces[] = '-';
-		return $this->temporaryPath . str_replace($searches, $replaces, $segment) . '.conf';
+		$this->execute($commands);
 	}
 
 	/**
@@ -177,38 +90,45 @@ class Doxygen extends BaseTask {
 	 */
 	protected function getExcludePath($source) {
 
-		$excludePatterns[] = $this->sourcePath . $source['folderName'] . '/master/typo3/contrib';
-		$excludePatterns[] = $this->sourcePath . $source['folderName'] . '/master/typo3/sysext/adodb';
+		$excludePatterns[] = $source . '/typo3/contrib';
+		$excludePatterns[] = $source . '/typo3/sysext/adodb';
 		return implode(" \\ \n", $excludePatterns);
 	}
+	
+	// -------------------------------
+    // Set properties from XML
+    // -------------------------------
 
-	/**
-	 * Returns the input path
+    /**
+     * Setter for source
 	 *
-	 * @param array $source the project data source
-	 * @return string
-	 */
-	protected function getInputPath($source) {
-		return $this->sourcePath . $source['folderName'] . '/master';
-	}
+     * @param string $source
+     * @return void
+     */
+    public function setSource($source){
+        $this->source = $source;
+    }
 
-	/**
-	 * Returns the output path
+    /**
+     * Setter for target
 	 *
-	 * @param array $source the project data source
-	 * @param string $segment a segment path containing the number of version
-	 * @return string
-	 */
-	protected function getOutputPath($source, $segment) {
-		$searches[] = $this->sourcePath;
-		$searches[] = 'TYPO3_';
-		$searches[] = '-';
-		$replaces[] = '';
-		$replaces[] = '';
-		$replaces[] = '.';
-		return $this->apiPath . $source['folderName'] . '/' . str_replace($searches, $replaces, $segment);
-	}
-
+     * @param string $target
+     * @return void
+     */
+    public function setTarget($target){
+        $this->target = $target;
+    }
+	
+    /**
+     * Setter for tagName
+	 *
+     * @param string $tagName
+     * @return void
+     */
+    public function setTagName($tagName){
+        $this->tagName = $tagName;
+    }
+	
 }
 
 ?>
