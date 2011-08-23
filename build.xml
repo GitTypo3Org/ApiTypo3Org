@@ -11,10 +11,11 @@
  	<!-- make sure the file exist with the appropriate configuration -->
 	<import file="build.configuration.xml"/>
 	
-	<!-- this configuration should be put in configuration -->
-	<property name="path.home" value="/var/www/vhosts/api.typo3.org/home/APIBuilder/"/>
-	<property name="path.storage" value="/var/www/vhosts/api.typo3.org/home/Storage/"/>
-	<property name="path.www" value="/var/www/vhosts/api.typo3.org/www/"/>
+	<!--
+	<property name="path.home" value="foo/APIBuilder/"/>
+	<property name="path.storage" value="foo/Storage/"/>
+	<property name="path.www" value="foo/www/"/>
+	-->
 	
 	<property name="path.build" value="${path.storage}Build/"/>
 	<property name="path.source" value="${path.storage}Source/"/>
@@ -54,7 +55,7 @@
 
 	<target name="help">
 	
-		<echo>${path.storage}---------------------------------------------</echo>
+		<echo>---------------------------------------------</echo>
 		<echo>Usage of this Phing</echo>
 		<echo>---------------------------------------------</echo>
 		<echo>phing build          - build the API by calling all the necessary ants: bootstrap, download, doxygen, phpuml, zip, deploy</echo>
@@ -64,7 +65,7 @@
 		<echo>phing phpuml         - launch the PHP UML generation process</echo>
 		<echo>phing archive        - archive the API documentation</echo>
 		<echo>phing deploy         - deploy the documentation API, Zip to the document root</echo>
-		<echo>phing test           - test whether everything has run correctly</echo>
+		<echo>phing test           - test whether everything has run correctly (not yet implemented)</echo>
 		<echo>phing help           - display this help message</echo>
 		<echo>phing reset          - reset the environment by deleting some output folders as API, Archive</echo>
 		<echo/>
@@ -98,11 +99,9 @@
 		<mkdir dir="${path.build}Logs" />
 		<mkdir dir="${path.build.archive}" />
 		<mkdir dir="${path.build.api}" />
-		<mkdir dir="${path.build.api}TYPO3v4" />
 		<mkdir dir="${path.build.api}Extbase" />
 		<mkdir dir="${path.build.api}Fluid" />
 		<mkdir dir="${path.build.api}FLOW3" />
-		<mkdir dir="${path.www}typo3v4" />
 		<mkdir dir="${path.www}extbase" />
 		<mkdir dir="${path.www}fluid" />
 		<mkdir dir="${path.www}archives" />
@@ -184,6 +183,15 @@
 		<echo>----------------------------------------</echo>
 		<echo>| Deploying api.typo3.org...            |</echo>
 		<echo>----------------------------------------</echo>
+		<deploy />
+	</target>
+	
+	<target name="typo3-4-5" depends="">
+		<echo>----------------------------------------</echo>
+		<echo>| Deploying TYPO3 4.5                   |</echo>
+		<echo>----------------------------------------</echo>
+		<mkdir dir="${path.build.api}TYPO3v4" />
+		<mkdir dir="${path.www}typo3v4" />
 		<deploy />
 	</target>
 	

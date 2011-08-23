@@ -92,8 +92,8 @@ abstract class BaseTask extends Task {
 		// Define a some paths
 		$this->wwwPath = $this->properties['path.www'];
 		$this->homePath = $this->properties['path.home'];
-		$this->buildPath = $this->properties['path.build'];
-		$this->sourcePath = $this->properties['path.source'];
+		$this->buildPath = str_replace('${path.storage}', $this->project->getProperty('path.storage') , $this->properties['path.build']);
+		$this->sourcePath = str_replace('${path.storage}', $this->project->getProperty('path.storage') , $this->properties['path.source']);
 		$this->temporaryPath = $this->buildPath . 'Temporary/';
 		$this->apiPath = $this->buildPath . 'Output/Api/';
 		$this->archivePath = $this->buildPath . 'Output/Zip/';
@@ -108,8 +108,6 @@ abstract class BaseTask extends Task {
 		}
 
 		$this->doxygenCommand = $this->properties['command.doyxgen'];
-
-
 
 		if (!file_exists($this->homePath)) {
 			throw new Exception("Exception thrown #1307637157:\n\n home directory does not exist : \"" . $this->homePath . "\"\n\n", 1307637157);
