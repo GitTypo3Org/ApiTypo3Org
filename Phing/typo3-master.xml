@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<project name="imported" basedir="." default=""  description="">
+
+	<target name="typo3-master" depends="bootstrap">
+		<echo>----------------------------------------</echo>
+		<echo>| Generating TYPO3 master API           |</echo>
+		<echo>----------------------------------------</echo>
+
+		<property name="version" value="typo3_src-master"/>
+		<property name="tagName" value="master"/>
+		<property name="tagNameDisplay" value="master"/>
+		<property name="deployPath" value="typo3v4"/>
+		<property name="deployPathName" value="master"/>
+		<property name="repository" value="git://git.typo3.org/TYPO3v4/Core.git"/>
+
+		<!-- Initialize the environment -->
+		<mkdir dir="${path.build.api}${version}" />
+		<mkdir dir="${path.www}typo3v4" />
+
+		<!-- Reset the repository (optional) -->
+		<!-- <delete dir="${path.source}${version}" /> -->
+		<download repository="${repository}" target="${path.source}${version}" tagName="${tagName}" submoduleDirectory="${path.source}${version}/typo3/sysext" />
+
+		<!-- Reset the API (recommanded) -->
+		<delete dir="${path.build.api}${version}" />
+		<delete>
+			<fileset dir="${path.temporary}">
+				<include name="*.conf" />
+			</fileset>
+		</delete>
+		<!-- Generate the Doxygen API -->
+		<doxygen source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
+
+		<!-- Archive -->
+		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />
+
+		<!-- Deploy -->
+		<deploy version="${version}" deployPath="${deployPath}" deployPathName="${deployPathName}" />
+
+		<echo>OK</echo>
+	</target>
+
+
+	<!-- DEPLOY REMOTE -->
+	<target name="deploy-typo3-master" depends="typo3-master">
+		<echo>----------------------------------------</echo>
+		<echo>| Deploying remotely TYPO3 master API      |</echo>
+		<echo>----------------------------------------</echo>
+
+		<property name="version" value="typo3_src-master"/>
+		<property name="deployPathName" value="master"/>
+
+		<!-- Copy the archive to the server -->
+		<commandLocal command="scp -q ${path.build.archive}${version}.zip ${server.credentials}:${site.remote.directory}www/archives/ "/>
+
+		<!-- Decompress the archive to the server -->
+		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}home/${version} "/>
+		<commandRemote credentials="${server.credentials}" command="unzip -qq ${site.remote.directory}www/archives/${version}.zip "/>
+		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}www/typo3v4/${deployPathName} "/>
+		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/${version} ${site.remote.directory}www/typo3v4/${deployPathName}"/>
+
+		<echo>OK</echo>
+	</target>
+
+</project>

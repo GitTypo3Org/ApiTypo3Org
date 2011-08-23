@@ -9,15 +9,15 @@
 
 
  	<!-- make sure the file exist with the appropriate configuration -->
-	<import file="build.configuration.xml"/>
-	
+	<import file="Phing/configuration.xml"/>
+
 	<!--
 	<property name="path.home" value="foo/APIBuilder/"/>
 	<property name="path.storage" value="foo/Storage/"/>
 	<property name="path.www" value="foo/www/"/>
 	<property name="command.doyxgen" value="/usr/bin/doxygen"/>
 	-->
-	
+
 	<property name="path.build" value="${path.storage}Build/"/>
 	<property name="path.source" value="${path.storage}Source/"/>
 
@@ -55,14 +55,23 @@
 	<taskdef name="commandLocal" classname="CommandLocal" classpathref="phingClasses"/>
 
 	<target name="help">
-	
+
 		<echo>---------------------------------------------</echo>
-		<echo>Usage of this Phing</echo>
+		<echo>Usage of FLOW3 Phing</echo>
 		<echo>---------------------------------------------</echo>
+		<echo>phing flow3-master</echo>
+
+		<echo>---------------------------------------------</echo>
+		<echo>Usage of typo3v4 Phing</echo>
+		<echo>---------------------------------------------</echo>
+		<echo>phing typo3-master</echo>
+		<echo>phing deploy-typo3-master</echo>
 		<echo>phing typo3-4-5</echo>
 		<echo>phing deploy-typo3-4-5</echo>
+		<echo>phing typo3-4-4</echo>
+		<echo>phing deploy-typo3-4-4</echo>
 		<echo/>
-		
+
 		<echo>---------------------------------------------</echo>
 		<echo>Obsolete Targets</echo>
 		<echo>---------------------------------------------</echo>
@@ -119,7 +128,7 @@
 		<echo>----------------------------------------</echo>
 		<download />
 	</target>
-	
+
 	<!-- Doxygen API -->
 	<target name="doxygen" depends="">
 		<echo>----------------------------------------</echo>
@@ -162,75 +171,11 @@
 		<echo>----------------------------------------</echo>
 		<deploy />
 	</target>
-	
-	
-	
-	<!-- ************************************ -->
-	<!--              TYPO3 4.5               -->
-	<!-- ************************************ -->
-	<target name="typo3-4-5" depends="bootstrap">
-		<echo>----------------------------------------</echo>
-		<echo>| Generating TYPO3 4.5 API              |</echo>
-		<echo>----------------------------------------</echo>
-		
-		<property name="version" value="typo3_src-4.5"/>
-		<property name="tagName" value="TYPO3_4-5-5"/>
-		<property name="tagNameDisplay" value="4.5.5"/>
-		<property name="deployPath" value="typo3v4"/>
-		<property name="deployPathName" value="45"/>
-		<property name="repository" value="git://git.typo3.org/TYPO3v4/Core.git"/>
-		
-		<!-- Initialize the environment -->
-		<mkdir dir="${path.build.api}${version}" />
-		<mkdir dir="${path.www}typo3v4" />
-		
-		<!-- Reset the repository (optional) -->
-		<!-- <delete dir="${path.source}${version}" /> -->
-		<download repository="${repository}" target="${path.source}${version}" tagName="${tagName}" submoduleDirectory="${path.source}${version}/typo3/sysext" />
-		
-		<!-- Reset the API (recommanded) -->
-		<delete dir="${path.build.api}${version}" />
-		<delete>
-			<fileset dir="${path.temporary}">
-				<include name="*.conf" />
-			</fileset>
-		</delete>
-		<!-- Generate the Doxygen API -->
-		<doxygen source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
-		
-		<!-- Archive -->
-		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />
-		
-		<!-- Deploy -->
-		<deploy version="${version}" deployPath="${deployPath}" deployPathName="${deployPathName}" current="true"/>
-		
-		<echo>OK</echo>
-	</target>
-	
-	
-	<!-- DEPLOY REMOTE -->
-	<target name="deploy-typo3-4-5" depends="">
-		<echo>----------------------------------------</echo>
-		<echo>| Deploying remotely TYPO3 4.5 API      |</echo>
-		<echo>----------------------------------------</echo>
-		
-		<property name="version" value="typo3_src-4.5"/>
-		<property name="tagName" value="TYPO3_4-5-5"/>
-		<property name="tagNameDisplay" value="4.5.5"/>
-		<property name="deployPath" value="typo3v4"/>
-		<property name="deployPathName" value="45"/>
-		
-		<!-- Copy the archive to the server -->
-		<commandLocal command="scp -q ${path.build.archive}${version}.zip ${server.credentials}:${site.remote.directory}www/archives/ "/>
-		
-		<!-- Decompress the archive to the server -->
-		<commandRemote credentials="${server.credentials}" command="unzip -qq ${site.remote.directory}www/archives/${version}.zip "/>
-		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/${version} ${site.remote.directory}www/typo3v4/${deployPathName}"/>
-		
-		<commandRemote credentials="${server.credentials}" command="unzip -qq ${site.remote.directory}www/archives/${version}.zip "/>
-		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/${version} ${site.remote.directory}www/typo3v4/current"/>
-		
-		<echo>OK</echo>
-	</target>
-	
+
+
+
+	<import file="Phing/typo3-master.xml"/>
+	<import file="Phing/typo3-4.5.xml"/>
+	<import file="Phing/typo3-4.4.xml"/>
+
 </project>

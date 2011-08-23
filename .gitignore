@@ -1,3 +1,2 @@
 Libraries/PHP_UML/
-build.configuration.xml
-build.sh
+Phing/configuration.xml
