@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<project name="imported" basedir="." default=""  description="">
+
+	<target name="build-typo3-incubator-file" depends="bootstrap">
+		<echo>----------------------------------------</echo>
+		<echo>| Generating TYPO3 Incubator API        |</echo>
+		<echo>----------------------------------------</echo>
+
+		<property name="version" value="typo3_src-incubator"/>
+		<property name="tagName" value="project-fileabstraction"/>
+		<property name="tagNameDisplay" value="fileabstraction"/>
+		<property name="deployPath" value="incubator"/>
+		<property name="deployPathName" value="file"/>
+		<property name="repository" value="git://git.typo3.org/TYPO3v4/Incubator.git"/>
+
+		<!-- Initialize the environment -->
+		<mkdir dir="${path.build.api}${version}" />
+		<mkdir dir="${path.www}incubator" />
+
+		<!-- Reset the repository (optional) -->
+		<!-- <delete dir="${path.source}${version}" /> -->
+		<download repository="${repository}" target="${path.source}${version}" tagName="${tagName}" submoduleDirectory="${path.source}${version}/typo3/sysext" />
+
+		<!-- Reset the API (recommanded) -->
+		<delete dir="${path.build.api}${version}" />
+		<delete>
+			<fileset dir="${path.temporary}">
+				<include name="*.conf" />
+			</fileset>
+		</delete>
+		<!-- Generate the Doxygen API -->
+		
+		<commandLocal command="${command.doxygen} ${path.configuration}Doxygen/fileabstraction.conf" />
+		<commandLocal command="cp ${path.home}Resources/Private/Templates/redirect.php ${path.build}Api/typo3_src-incubator/index.php" />
+		<commandLocal command="rsync -a --delete ${path.build}Api/typo3_src-incubator/ ${path.www}incubator/file" />
+		 
+		<!-- Default task for "regular" Phing
+			<doxygen source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
+			
+			<deploy version="${version}" deployPath="${deployPath}" deployPathName="${deployPathName}" />
+		-->
+
+		<echo>OK</echo>
+	</target>
+
+</project>

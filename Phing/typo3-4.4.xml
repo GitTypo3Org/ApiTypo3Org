@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="imported" basedir="." default=""  description="">
 	
-	<target name="typo3-4.4" depends="bootstrap">
+	<target name="build-typo3-4.4" depends="bootstrap">
 		<echo>----------------------------------------</echo>
 		<echo>| Generating TYPO3 4.4 API              |</echo>
 		<echo>----------------------------------------</echo>
@@ -44,7 +44,7 @@
 
 
 	<!-- DEPLOY REMOTE -->
-	<target name="deploy-typo3-4.4" depends="typo3-4.4">
+	<target name="deploy-typo3-4.4" depends="build-typo3-4.4">
 		<echo>----------------------------------------</echo>
 		<echo>| Deploying remotely TYPO3 4.4 API      |</echo>
 		<echo>----------------------------------------</echo>

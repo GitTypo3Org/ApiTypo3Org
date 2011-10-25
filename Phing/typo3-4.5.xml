@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
 <project name="imported" basedir="." default=""  description="">
 	
-	<target name="typo3-4.5" depends="bootstrap">
+	<target name="build-typo3-4.5" depends="bootstrap">
 		<echo>----------------------------------------</echo>
 		<echo>| Generating TYPO3 4.5 API              |</echo>
 		<echo>----------------------------------------</echo>
 
 		<!-- check version http://typo3.org/download/packages/ -->
-		<property name="tagName" value="TYPO3_4-5-5"/>
-		<property name="tagNameDisplay" value="4.5.5"/>
+		<property name="tagName" value="TYPO3_4-5-7"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<property name="tagNameDisplay" value="4.5.7"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<property name="currentStableVersion" value="true"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
 		
 		<property name="version" value="typo3_src-4.5"/>
 		<property name="deployPath" value="typo3v4"/>
@@ -37,14 +38,14 @@
 		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />
 
 		<!-- Deploy -->
-		<deploy version="${version}" deployPath="${deployPath}" deployPathName="${deployPathName}" current="true"/>
+		<deploy version="${version}" deployPath="${deployPath}" deployPathName="${deployPathName}" current="${currentStableVersion}"/>
 
 		<echo>OK</echo>
 	</target>
 
 
 	<!-- DEPLOY REMOTE -->
-	<target name="deploy-typo3-4.5" depends="typo3-4.5">
+	<target name="deploy-typo3-4.5" depends="build-typo3-4.5">
 		<echo>----------------------------------------</echo>
 		<echo>| Deploying remotely TYPO3 4.5 API      |</echo>
 		<echo>----------------------------------------</echo>

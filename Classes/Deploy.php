@@ -30,6 +30,7 @@ require_once('BaseTask.php');
 class Deploy extends BaseTask {
 	
 	/**
+	 * Is the documentation deployed under /current
 	 *
 	 * @var boolean
 	 */

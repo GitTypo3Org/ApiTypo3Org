@@ -29,6 +29,7 @@
 
 	<property name="path.build" value="${path.storage}Build/"/>
 	<property name="path.source" value="${path.storage}Source/"/>
+	<property name="path.configuration" value="${path.home}Configuration/"/>
 
 	<property name="server.credentials" value="api"/>
 	<property name="site.remote.directory" value="/var/www/vhosts/api.typo3.org/"/>
@@ -39,8 +40,8 @@
 	<property name="path.storage" value="/var/www/vhosts/api.typo3.org/home"/>
 	<property name="path.build" value="${path.storage}Build/"/>
 	<property name="path.source" value="${path.storage}Source/"/>
-	<property name="command.doyxgen" value="/usr/bin/doxygen"/>
 -->
+	<property name="command.doxygen" value="/usr/bin/doxygen"/>
 	<property name="path.build.archive" value="${path.build}Zip/"/>
 	<property name="path.build.api" value="${path.build}Api/"/>
 	<property name="path.temporary" value="${path.storage}Temporary/"/>
@@ -64,54 +65,50 @@
 	<taskdef name="commandLocal" classname="CommandLocal" classpathref="phingClasses"/>
 
 	<target name="help">
-
-		<echo>---------------------------------------------</echo>
-		<echo>Usage for PHPUML Documentation</echo>
-		<echo>---------------------------------------------</echo>
-		<echo>phing flow3-master</echo>
-		<echo>phing extbase-1.3</echo>
-		<echo/>
-
+		
 		<echo>---------------------------------------------</echo>
 		<echo>Usage for Doxygen Documentation</echo>
 		<echo>---------------------------------------------</echo>
-		<echo>phing typo3-master</echo>
+		<echo>phing build-typo3-master       </echo>
+		<echo>phing build-typo3-4.5          </echo>
+		<echo>phing build-typo3-4.4          </echo>
+		<echo>phing build-typo3-4.3          </echo>
+		<echo/>
+
+		<echo>---------------------------------------------</echo>
+		<echo>Usage for Incubator Documentation</echo>
+		<echo>---------------------------------------------</echo>
+		<echo>phing build-typo3-incubator-file       </echo>
+		<echo/>
+		
+		<echo>---------------------------------------------</echo>
+		<echo>Usage for PHPUML Documentation</echo>
+		<echo>---------------------------------------------</echo>
+		<echo>phing build-extbase-master </echo>
+		<echo>phing build-extbase-1.3    </echo>
+		<echo/>
+		<echo>phing build-fluid-master   </echo>
+		<echo>phing build-fluid-1.3      </echo>
+		<echo/>
+		<echo>phing build-flow3-master   </echo>
+		<echo>phing build-flow3-1.0      </echo>
+		<echo/>
+
+		<echo>---------------------------------------------</echo>
+		<echo>Remote Deploy</echo>
+		<echo>---------------------------------------------</echo>
 		<echo>phing deploy-typo3-master</echo>
-		<echo>phing typo3-4.5</echo>
-		<echo>phing deploy-typo3-4.5</echo>
-		<echo>phing typo3-4.4</echo>
-		<echo>phing deploy-typo3-4.4</echo>
-		<echo>phing typo3-4.3</echo>
-		<echo>phing deploy-typo3-4.3</echo>
-		<echo/>
-
-		<echo>---------------------------------------------</echo>
-		<echo>Obsolete Targets</echo>
-		<echo>---------------------------------------------</echo>
-		<echo>phing build          - build the API by calling all the necessary ants: bootstrap, download, doxygen, phpuml, zip, deploy</echo>
-		<echo>phing bootstrap      - prepare the environment </echo>
-		<echo>phing download       - download sources related to different projects linked with TYPO3</echo>
-		<echo>phing doxygen        - launch the Doxygen generation process</echo>
-		<echo>phing phpuml         - launch the PHP UML generation process</echo>
-		<echo>phing archive        - archive the API documentation</echo>
-		<echo>phing deploy         - deploy the documentation API, Zip to the document root</echo>
-		<echo>phing test           - test whether everything has run correctly (not yet implemented)</echo>
-		<echo>phing help           - display this help message</echo>
-		<echo>phing reset          - reset the environment by deleting some output folders as API, Archive</echo>
-		<echo/>
-
-
+		<echo>phing deploy-typo3-4.5   </echo>
+		<echo>phing deploy-typo3-4.4   </echo>
+		<echo>phing deploy-typo3-4.3   </echo>
+		
 		<echo>---------------------------------------------</echo>
 		<echo>Possible options</echo>
 		<echo>---------------------------------------------</echo>
 		<echo>-DdryRun=true        - will display the command to be executed</echo>
-		<echo>-Dforce=true          - will force the documentation to be regenerated</echo>
+		<echo>-Dforce=true         - will force the documentation to be regenerated</echo>
 	</target>
 
-
-	<!-- MAIN RUN -->
-<!--	<target name="build" depends="bootstrap,download,doxygen,phpuml,archive,deploy" />-->
-	<target name="build-phpuml" depends="bootstrap,download,phpuml,archive,deploy" />
 
 	<!-- BOOTSTRAP -->
 	<target name="bootstrap" description="Bootstrap the system">
@@ -128,61 +125,20 @@
 		<echo>OK</echo>
 	</target>
 
-	<!-- DOWNLOAD SOURCE -->
-	<target name="download" depends="">
-		<echo>----------------------------------------</echo>
-		<echo>| Downloading latest source...         |</echo>
-		<echo>----------------------------------------</echo>
-		<download />
-	</target>
-
-	<!-- Doxygen API -->
-	<target name="doxygen" depends="">
-		<echo>----------------------------------------</echo>
-		<echo>| Generating Doxygen documentation...      |</echo>
-		<echo>----------------------------------------</echo>
-		<doxygen />
-	</target>
-
-	<!-- PHP UML API -->
-	<target name="phpuml" depends="">
-		<echo>----------------------------------------</echo>
-		<echo>| Generating PHP UML documentation...   |</echo>
-		<echo>----------------------------------------</echo>
-		<phpuml />
-	</target>
-
-	<!-- ARCHIVE API -->
-	<target name="archive" depends="">
-		<echo>----------------------------------------</echo>
-		<echo>| Creating archives...                 |</echo>
-		<echo>----------------------------------------</echo>
-		<archive />
-	</target>
-
-	<!-- RESET API -->
-	<target name="reset" depends="delete,bootstrap" />
-	<target name="delete" depends="">
-		<echo>----------------------------------------</echo>
-		<echo>| Delete somes files...                |</echo>
-		<echo>----------------------------------------</echo>
-
-		<commandLocal command="rm -rf ${path.build.api}"/>
-		<commandLocal command="rm -rf ${path.build.archive}"/>
-	</target>
-
-	<!-- DEPLOY API -->
-	<target name="deploy" depends="">
-		<echo>----------------------------------------</echo>
-		<echo>| Deploying api.typo3.org...            |</echo>
-		<echo>----------------------------------------</echo>
-		<deploy />
-	</target>
-
+	
 	<import file="Phing/typo3-master.xml"/>
 	<import file="Phing/typo3-4.5.xml"/>
 	<import file="Phing/typo3-4.4.xml"/>
 	<import file="Phing/typo3-4.3.xml"/>
+	
+	<import file="Phing/typo3-incubator.xml"/>
+	
 	<import file="Phing/extbase-1.3.xml"/>
-
+	<import file="Phing/extbase-master.xml"/>
+	
+	<import file="Phing/fluid-1.3.xml"/>
+	<import file="Phing/fluid-master.xml"/>
+	
+	<import file="Phing/flow3-1.0.xml"/>
+	<import file="Phing/flow3-master.xml"/>
 </project>

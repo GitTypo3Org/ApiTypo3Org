@@ -68,6 +68,9 @@ class Download extends BaseTask {
 		if (!is_dir($this->target)) {
 			$commands[] = 'git clone --recursive --quiet ' . $this->repository . ' ' . $this->target;
 		}
+		else {
+			$commands[] = 'cd ' . $this->target . '; git checkout master --quiet';
+		}
 
 		// needs to switch to the master before it can make a pull...
 		if ($this->submoduleDirectory) {
@@ -88,28 +91,6 @@ class Download extends BaseTask {
 		
 		// execute commands
 		$this->execute($commands);
-	}
-
-	/**
-	 * Returns the command to be executed to download sources of TYPO3 v4
-	 *
-	 * @return array
-	 */
-	protected function getCommands($datasource) {
-		$commands = array();
-
-		// commands for trunk
-		$sourcePath = $this->sourcePath . $datasource['folderName'] . '/master/';
-		if (!is_dir($sourcePath)) {
-			$commands[] = 'git clone --recursive --quiet ' . $datasource['repository'] . ' ' . $sourcePath;
-		}
-
-		$commands[] = 'cd ' . $sourcePath . '; git checkout master --quiet';
-		$commands[] = 'cd ' . $sourcePath . '; git pull --quiet';
-		$commands[] = 'cd ' . $sourcePath . '; git fetch --tags --quiet';
-		$commands[] = 'cd ' . $sourcePath . '; git submodule update --quiet';
-
-		return $commands;
 	}
 	
 	// -------------------------------
