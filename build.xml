@@ -70,6 +70,7 @@
 		<echo>Usage for Doxygen Documentation</echo>
 		<echo>---------------------------------------------</echo>
 		<echo>phing build-typo3-master       </echo>
+		<echo>phing build-typo3-4.6          </echo><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
 		<echo>phing build-typo3-4.5          </echo>
 		<echo>phing build-typo3-4.4          </echo>
 		<echo>phing build-typo3-4.3          </echo>
@@ -95,14 +96,6 @@
 		<echo/>
 
 		<echo>---------------------------------------------</echo>
-		<echo>Remote Deploy</echo>
-		<echo>---------------------------------------------</echo>
-		<echo>phing deploy-typo3-master</echo>
-		<echo>phing deploy-typo3-4.5   </echo>
-		<echo>phing deploy-typo3-4.4   </echo>
-		<echo>phing deploy-typo3-4.3   </echo>
-		
-		<echo>---------------------------------------------</echo>
 		<echo>Possible options</echo>
 		<echo>---------------------------------------------</echo>
 		<echo>-DdryRun=true        - will display the command to be executed</echo>
@@ -127,6 +120,7 @@
 
 	
 	<import file="Phing/typo3-master.xml"/>
+	<import file="Phing/typo3-4.6.xml"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
 	<import file="Phing/typo3-4.5.xml"/>
 	<import file="Phing/typo3-4.4.xml"/>
 	<import file="Phing/typo3-4.3.xml"/>

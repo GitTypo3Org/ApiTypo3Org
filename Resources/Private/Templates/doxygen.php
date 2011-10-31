@@ -152,7 +152,8 @@ RECURSIVE              = YES
 EXCLUDE                = <?php print $excludePath ?>
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       = scheduler_cli_dispatch.php \
-                         .svn
+                         .svn \
+                         .git
 
 EXCLUDE_SYMBOLS        =
 EXAMPLE_PATH           =
@@ -271,7 +272,7 @@ MAN_LINKS              = NO
 #---------------------------------------------------------------------------
 # configuration options related to the XML output
 #---------------------------------------------------------------------------
-GENERATE_XML           = NO
+GENERATE_XML           = YES
 XML_OUTPUT             = xml
 XML_SCHEMA             =
 XML_DTD                =
