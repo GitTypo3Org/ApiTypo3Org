@@ -96,6 +96,12 @@
 		<echo/>
 
 		<echo>---------------------------------------------</echo>
+		<echo>Usage for APIGen Documentation</echo>
+		<echo>---------------------------------------------</echo>
+		<echo>phing build-flow3-form-master </echo>
+		<echo />
+
+		<echo>---------------------------------------------</echo>
 		<echo>Possible options</echo>
 		<echo>---------------------------------------------</echo>
 		<echo>-DdryRun=true        - will display the command to be executed</echo>
@@ -135,4 +141,6 @@
 	
 	<import file="Phing/flow3-1.0.xml"/>
 	<import file="Phing/flow3-master.xml"/>
+
+	<import file="Phing/flow3-form-master.xml"/>
 </project>
