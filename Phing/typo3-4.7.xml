@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <project name="imported" basedir="." default=""  description="">
 	
-	<target name="build-typo3-4.6" depends="bootstrap"><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+	<target name="build-typo3-4.7" depends="bootstrap"><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
 		<echo>----------------------------------------</echo>
-		<echo>| Generating TYPO3 4.6 API              |</echo><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<echo>| Generating TYPO3 4.7 API              |</echo><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
 		<echo>----------------------------------------</echo>
 
 		<!-- check version http://typo3.org/download/packages/ -->
-		<property name="tagName" value="TYPO3_4-6-8"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
-		<property name="tagNameDisplay" value="4.6.8"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
-		<property name="currentStableVersion" value="false"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<property name="tagName" value="TYPO3_4-7-0"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<property name="tagNameDisplay" value="4.7.0"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<property name="currentStableVersion" value="true"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
 		
-		<property name="version" value="typo3_src-4.6"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<property name="version" value="typo3_src-4.7"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
 		<property name="deployPath" value="typo3v4"/>
-		<property name="deployPathName" value="46"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<property name="deployPathName" value="47"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
 		<property name="repository" value="git://git.typo3.org/TYPO3v4/Core.git"/>
 
 		<!-- Initialize the environment -->

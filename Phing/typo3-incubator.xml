@@ -18,9 +18,12 @@
 		<mkdir dir="${path.www}incubator" />
 
 		<!-- Reset the repository (optional) -->
-		<!-- <delete dir="${path.source}${version}" /> -->
-		<download repository="${repository}" target="${path.source}${version}" tagName="${tagName}" submoduleDirectory="${path.source}${version}/typo3/sysext" />
-
+		<!-- preliminary command by hand:
+		     git co -b project-fileabstraction origin/project-fileabstraction
+		-->
+		<commandLocal command="cd ${path.source}${version}; git pull --quiet" />
+		<commandLocal command="cd ${path.source}${version}; git submodule update --quiet" />
+		
 		<!-- Reset the API (recommanded) -->
 		<delete dir="${path.build.api}${version}" />
 		<delete>

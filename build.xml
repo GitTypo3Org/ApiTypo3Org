@@ -126,16 +126,19 @@
 
 	
 	<import file="Phing/typo3-master.xml"/>
-	<import file="Phing/typo3-4.6.xml"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+	<import file="Phing/typo3-4.7.xml"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+	<import file="Phing/typo3-4.6.xml"/>
 	<import file="Phing/typo3-4.5.xml"/>
 	<import file="Phing/typo3-4.4.xml"/>
 	<import file="Phing/typo3-4.3.xml"/>
 	
 	<import file="Phing/typo3-incubator.xml"/>
 	
+	<import file="Phing/extbase-4.7.xml"/>
 	<import file="Phing/extbase-1.3.xml"/>
 	<import file="Phing/extbase-master.xml"/>
 	
+	<import file="Phing/fluid-4.7.xml"/>
 	<import file="Phing/fluid-1.3.xml"/>
 	<import file="Phing/fluid-master.xml"/>
 	
