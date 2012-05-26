@@ -25,14 +25,21 @@
 		<download repository="${repository}" target="${path.source}${version}" tagName="${tagName}" submoduleDirectory="${path.source}${version}/typo3/sysext" />
 
 		<!-- Reset the API (recommanded) -->
+
 		<delete dir="${path.build.api}${version}" />
 		<delete>
 			<fileset dir="${path.temporary}">
 				<include name="*.conf" />
 			</fileset>
 		</delete>
+
 		<!-- Generate the Doxygen API -->
 		<doxygen source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
+
+		<!-- Generate the Docset -->
+		<!-- MAJOR: MOVE ME TO THE NEXT VERSION OF TYPO3 -->
+		<!-- Will work solely on OSX because of command "docsetutil" -->
+		<!-- <docset source="${path.source}${version}" target="${path.build.api}${version}" version="${version}" current="${currentStableVersion}"/> -->
 
 		<!-- Archive -->
 		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />

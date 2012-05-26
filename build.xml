@@ -57,6 +57,7 @@
 	<!-- TASK DEFINITION -->
 	<taskdef name="download" classname="Download" classpathref="phingClasses"/>
 	<taskdef name="doxygen" classname="Doxygen" classpathref="phingClasses"/>
+	<taskdef name="docset" classname="Docset" classpathref="phingClasses"/>
 	<taskdef name="phpuml" classname="PHPUML" classpathref="phingClasses"/>
 	<taskdef name="archive" classname="Archive" classpathref="phingClasses"/>
 	<taskdef name="deploy" classname="Deploy" classpathref="phingClasses"/>
@@ -70,7 +71,8 @@
 		<echo>Usage for Doxygen Documentation</echo>
 		<echo>---------------------------------------------</echo>
 		<echo>phing build-typo3-master       </echo>
-		<echo>phing build-typo3-4.6          </echo><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<echo>phing build-typo3-4.7          </echo><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<echo>phing build-typo3-4.6          </echo>
 		<echo>phing build-typo3-4.5          </echo>
 		<echo>phing build-typo3-4.4          </echo>
 		<echo>phing build-typo3-4.3          </echo>
