@@ -73,23 +73,16 @@ class Docset extends BaseTask {
 		$commands[] = 'tar -czf Typo3.tgz org.doxygen.Project.docset';
 		$commands[] = 'cp Typo3.tgz ' . $this->archivePath . 'Typo3.docset.tgz' ;
 		$commands[] = 'mv Typo3.tgz ' . $this->wwwPath;
-		#echo ;
-		#exit();	
-/*
-		// Update the ZIP repository
-		$commands[] = 'echo "Options +Indexes -FollowSymLinks -Includes" > ' . $this->wwwPath . 'archives/.htaccess';
-		
-		$archiveFile = $this->archivePath . $this->version . '.zip';
-		$commands[] = 'rsync -a ' . $archiveFile . ' ' . $this->wwwPath . 'archives';
-		
-		
-		$apiDirectory = $this->apiPath . $this->version;
-		$commands[] = 'rsync -a --delete ' . $apiDirectory . '/ ' . $this->wwwPath . $this->deployPath . '/' . $this->deployPathName;
 
-		if ($this->current) {
-			$commands[] = 'rsync -a --delete ' . $apiDirectory . '/ ' . $this->wwwPath . $this->deployPath . '/current';
-		}
-*/
+		
+$content = <<<EOF
+<entry>
+    <version>TYPO3 4.7</version>
+    <url>http://api.typo3.org/docsets/Typo3.tgz</url>
+</entry>
+EOF;
+		# @todo
+		#file_put_contents($content, $this->wwwPath . 'feeds/Typo3.xml');
 
 		$this->execute($commands);
 	}

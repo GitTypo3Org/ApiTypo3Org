@@ -123,6 +123,9 @@
 		<mkdir dir="${path.build.archive}" />
 		<mkdir dir="${path.build.api}" />
 		<mkdir dir="${path.www}archives" />
+		<mkdir dir="${path.www}feeds" />
+		<mkdir dir="${path.www}docsets" />
+		<touch file="${path.www}feeds/Typo3.xml" />
 		<echo>OK</echo>
 	</target>
 
