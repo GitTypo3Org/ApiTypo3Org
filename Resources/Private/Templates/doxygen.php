@@ -5,7 +5,7 @@
 # Project related configuration options
 #---------------------------------------------------------------------------
 DOXYFILE_ENCODING      = UTF-8
-PROJECT_NAME           = &nbsp;
+PROJECT_NAME           = TYPO3
 PROJECT_NUMBER         = <?php print $projectNumber ?>
 PROJECT_BRIEF          =
 PROJECT_LOGO           = <?php print $projectLogo ?>
