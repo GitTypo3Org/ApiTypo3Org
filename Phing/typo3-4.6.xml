@@ -7,8 +7,8 @@
 		<echo>----------------------------------------</echo>
 
 		<!-- check version http://typo3.org/download/packages/ -->
-		<property name="tagName" value="TYPO3_4-6-8"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
-		<property name="tagNameDisplay" value="4.6.8"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<property name="tagName" value="TYPO3_4-6-9"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<property name="tagNameDisplay" value="4.6.9"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
 		<property name="currentStableVersion" value="false"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
 		
 		<property name="version" value="typo3_src-4.6"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
