@@ -21,7 +21,7 @@
 
 /**
  * This class is used to download sources
- * 
+ *
  * @author Fabien Udriot <fabien.udriot@ecodev.ch>
  *
  * $Id: Download.php 2392 2011-02-15 16:28:16Z fab1en $
@@ -35,25 +35,25 @@ class Download extends BaseTask {
 	 * @var string
 	 */
 	protected $repository = '';
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $target = '';
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $tagName = '';
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $submoduleDirectory = '';
-	
+
 	/**
 	 * Generates commands to download different sources related to TYPO3
 	 *
@@ -64,7 +64,7 @@ class Download extends BaseTask {
 		// Initialize task
 		$this->initialize();
 		$this->log('downloading latest source...');
-		
+
 		if (!is_dir($this->target)) {
 			$commands[] = 'git clone --recursive --quiet ' . $this->repository . ' ' . $this->target;
 		}
@@ -88,11 +88,11 @@ class Download extends BaseTask {
 		}
 		$commands[] = 'cd ' . $this->target . '; git checkout ' . $this->tagName . ' --quiet';
 		$commands[] = 'cd ' . $this->target . '; git submodule update --quiet';
-		
+
 		// execute commands
 		$this->execute($commands);
 	}
-	
+
 	// -------------------------------
     // Set properties from XML
     // -------------------------------
@@ -116,7 +116,7 @@ class Download extends BaseTask {
     public function setTarget($target){
         $this->target = $target;
     }
-	
+
     /**
      * Setter for tagName
 	 *
@@ -126,7 +126,7 @@ class Download extends BaseTask {
     public function setTagName($tagName){
         $this->tagName = $tagName;
     }
-	
+
     /**
      * Setter for submoduleDirectory
 	 *

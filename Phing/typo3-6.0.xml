@@ -1,16 +1,19 @@
 <?xml version="1.0"?>
 <project name="imported" basedir="." default=""  description="">
 
-	<target name="build-typo3-master" depends="bootstrap">
+	<target name="build-typo3-6.0" depends="bootstrap"><!-- CHANGE ME FOR NEXT VERSION -->
 		<echo>----------------------------------------</echo>
-		<echo>| Generating TYPO3 master API           |</echo>
+		<echo>| Generating TYPO3 6.0 API              |</echo><!-- CHANGE ME FOR NEXT VERSION -->
 		<echo>----------------------------------------</echo>
 
-		<property name="version" value="typo3_src-master"/>
-		<property name="tagName" value="master"/>
-		<property name="tagNameDisplay" value="master"/>
+		<!-- check version http://typo3.org/download/packages/ -->
+		<property name="tagName" value="TYPO3_6-0"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="tagNameDisplay" value="6.0"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="currentStableVersion" value="true"/><!-- CHANGE ME FOR NEXT VERSION -->
+
+		<property name="version" value="typo3_src-6.0"/><!-- CHANGE ME FOR NEXT VERSION -->
 		<property name="deployPath" value="typo3cms"/>
-		<property name="deployPathName" value="master"/>
+		<property name="deployPathName" value="60"/><!-- CHANGE ME FOR NEXT VERSION -->
 		<property name="repository" value="git://git.typo3.org/TYPO3v4/Core.git"/>
 
 		<!-- Initialize the environment -->
@@ -22,20 +25,27 @@
 		<download repository="${repository}" target="${path.source}${version}" tagName="${tagName}" submoduleDirectory="${path.source}${version}/typo3/sysext" />
 
 		<!-- Reset the API (recommanded) -->
+
 		<delete dir="${path.build.api}${version}" />
 		<delete>
 			<fileset dir="${path.temporary}">
 				<include name="*.conf" />
 			</fileset>
 		</delete>
+
 		<!-- Generate the Doxygen API -->
 		<doxygen source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
+
+		<!-- Generate the Docset -->
+		<!-- CHANGE ME FOR NEXT VERSION -->
+		<!-- Will work solely on OSX because of command "docsetutil" -->
+		<!-- <docset source="${path.source}${version}" target="${path.build.api}${version}" version="${version}" current="${currentStableVersion}"/> -->
 
 		<!-- Archive -->
 		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />
 
 		<!-- Deploy -->
-		<deploy version="${version}" deployPath="${deployPath}" deployPathName="${deployPathName}" />
+		<deploy version="${version}" deployPath="${deployPath}" deployPathName="${deployPathName}" current="${currentStableVersion}"/>
 
 		<echo>OK</echo>
 	</target>

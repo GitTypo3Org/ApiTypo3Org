@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <project name="imported" basedir="." default=""  description="">
-	
+
 	<target name="build-typo3-4.5" depends="bootstrap">
 		<echo>----------------------------------------</echo>
 		<echo>| Generating TYPO3 4.5 API              |</echo>
 		<echo>----------------------------------------</echo>
 
 		<!-- check version http://typo3.org/download/packages/ -->
-		<property name="tagName" value="TYPO3_4-5-16"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
-		<property name="tagNameDisplay" value="4.5.16"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<property name="tagName" value="TYPO3_4-5"/>
+		<property name="tagNameDisplay" value="4.5"/>
 		<property name="currentStableVersion" value="false"/>
-		
+
 		<property name="version" value="typo3_src-4.5"/>
-		<property name="deployPath" value="typo3v4"/>
+		<property name="deployPath" value="typo3cms"/>
 		<property name="deployPathName" value="45"/>
 		<property name="repository" value="git://git.typo3.org/TYPO3v4/Core.git"/>
 
 		<!-- Initialize the environment -->
 		<mkdir dir="${path.build.api}${version}" />
-		<mkdir dir="${path.www}typo3v4" />
+		<mkdir dir="${path.www}${deployPath}" />
 
 		<!-- Reset the repository (optional) -->
 		<!-- <delete dir="${path.source}${version}" /> -->
@@ -59,15 +59,15 @@
 		<!-- Decompress the archive to the server -->
 		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}home/${version} "/>
 		<commandRemote credentials="${server.credentials}" command="unzip -qq ${site.remote.directory}www/archives/${version}.zip "/>
-		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}www/typo3v4/${deployPathName} "/>
-		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/${version} ${site.remote.directory}www/typo3v4/${deployPathName}"/>
+		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}www/typo3cms/${deployPathName} "/>
+		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/${version} ${site.remote.directory}www/typo3cms/${deployPathName}"/>
 
 		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}home/${version} "/>
 		<commandRemote credentials="${server.credentials}" command="unzip -qq ${site.remote.directory}www/archives/${version}.zip "/>
-		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}www/typo3v4/current"/>
-		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/${version} ${site.remote.directory}www/typo3v4/current"/>
+		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}www/typo3cms/current"/>
+		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/${version} ${site.remote.directory}www/typo3cms/current"/>
 
 		<echo>OK</echo>
 	</target>
-	
+
 </project>

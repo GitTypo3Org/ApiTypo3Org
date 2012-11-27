@@ -21,33 +21,33 @@
 
 /**
  * This class is used to download sources
- * 
+ *
  * @author Fabien Udriot <fabien.udriot@ecodev.ch>
  *
  */
 require_once('BaseTask.php');
 
 class Deploy extends BaseTask {
-	
+
 	/**
 	 * Is the documentation deployed under /current
 	 *
 	 * @var boolean
 	 */
 	protected $current = FALSE;
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $version = '';
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $deployPath = '';
-	
+
 	/**
 	 *
 	 * @var string
@@ -67,11 +67,11 @@ class Deploy extends BaseTask {
 
 		// Update the ZIP repository
 		$commands[] = 'echo "Options +Indexes -FollowSymLinks -Includes" > ' . $this->wwwPath . 'archives/.htaccess';
-		
+
 		$archiveFile = $this->archivePath . $this->version . '.zip';
 		$commands[] = 'rsync -a ' . $archiveFile . ' ' . $this->wwwPath . 'archives';
-		
-		
+
+
 		$apiDirectory = $this->apiPath . $this->version;
 		$commands[] = 'rsync -a --delete ' . $apiDirectory . '/ ' . $this->wwwPath . $this->deployPath . '/' . $this->deployPathName;
 
@@ -105,7 +105,7 @@ class Deploy extends BaseTask {
 	public function setDeployPath($deployPath) {
 		$this->deployPath = $deployPath;
 	}
-	
+
 	/**
 	 * Setter for deployPathName
 	 *
@@ -115,7 +115,7 @@ class Deploy extends BaseTask {
 	public function setDeployPathName($deployPathName) {
 		$this->deployPathName = $deployPathName;
 	}
-	
+
 	/**
 	 * Setter for current
 	 *

@@ -34,19 +34,19 @@ class PHPUML extends BaseTask {
 	 * @var string
 	 */
 	protected $source = '';
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $target = '';
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $tagName = '';
-	
+
 	/**
 	 * should the documentation be re-generated
 	 *
@@ -64,7 +64,7 @@ class PHPUML extends BaseTask {
 		// Initialize task
 		$this->initialize();
 		$this->log('generating PHP UML API...');
-		
+
 		$outputPath = $this->source;
 
 		$command = '';
@@ -80,7 +80,7 @@ class PHPUML extends BaseTask {
 		$command .= '$renderer->generateXMI(2.1, "utf-8");';
 		$command .= '$renderer->export("html", "' . $this->target . '");';
 		$commands[] = "php -r '" . $command . "'";
-		
+
 		$this->execute($commands);
 	}
 
@@ -107,7 +107,7 @@ class PHPUML extends BaseTask {
     public function setTarget($target){
         $this->target = $target;
     }
-	
+
     /**
      * Setter for tagName
 	 *

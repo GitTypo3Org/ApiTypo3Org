@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <project name="imported" basedir="." default=""  description="">
 
-	<target name="build-flow3-form-master" depends="bootstrap">
+	<target name="build-flow-2.0" depends="bootstrap">
 		<echo>----------------------------------------</echo>
-		<echo>| Generating FLOW3 Form master API     |</echo>
+		<echo>| Generating Flow 1.0 API              |</echo>
 		<echo>----------------------------------------</echo>
 
 		<!-- check version http://typo3.org/download/packages/ -->
-		<property name="tagName" value="master"/>
-		<property name="tagNameDisplay" value="master"/>
-		<property name="currentStableVersion" value="false"/>
+		<property name="tagName" value="FLOW3-1.0.6"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<property name="tagNameDisplay" value="2.0"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<property name="currentStableVersion" value="true"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
 
-		<property name="version" value="flow3-form-master"/>
-		<property name="deployPath" value="flow3-form"/>
-		<property name="deployPathName" value="master"/>
-		<property name="repository" value="git://git.typo3.org/FLOW3/Packages/TYPO3.Form.git"/>
+		<property name="version" value="flow-2.0"/>
+		<property name="deployPath" value="flow"/>
+		<property name="deployPathName" value="20"/>
+		<property name="repository" value="git://git.typo3.org/FLOW3/Packages/TYPO3.FLOW3.git"/>
 
 		<!-- Initialize the environment -->
 		<mkdir dir="${path.build.api}${version}" />
-		<mkdir dir="${path.www}flow3-form" />
+		<mkdir dir="${path.www}${deployPath}"/>
 
 		<!-- Reset the repository (optional) -->
 		<!-- <delete dir="${path.source}${version}" /> -->
@@ -27,8 +27,8 @@
 		<!-- Reset the API (recommanded) -->
 		<delete dir="${path.build.api}${version}" />
 
-		<!-- Generate the API using APIgen -->
-		<commandLocal command="php Libraries/apigen/apigen.php --config ${path.source}${version}/Scripts/api.neon --destination ${path.build.api}${version}" />
+		<!-- Generate the PHP UML API -->
+		<phpuml source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
 
 
 		<!-- Archive -->

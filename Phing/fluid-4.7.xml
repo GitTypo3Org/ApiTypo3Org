@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <project name="imported" basedir="." default=""  description="">
-	
+
 	<target name="build-fluid-4.7" depends="bootstrap">
 		<echo>----------------------------------------</echo>
 		<echo>| Generating Fluid 4.7 API              |</echo>
 		<echo>----------------------------------------</echo>
 
 		<!-- check version http://typo3.org/download/packages/ -->
-		<property name="tagName" value="TYPO3_4-7-0"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<property name="tagName" value="TYPO3_4-7-0"/>
 		<property name="tagNameDisplay" value="4.7"/>
-		<property name="currentStableVersion" value="true"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
-		
+		<property name="currentStableVersion" value="false"/>
+
 		<property name="version" value="fluid-4.7"/>
 		<property name="deployPath" value="fluid"/>
 		<property name="deployPathName" value="47"/>
@@ -23,10 +23,10 @@
 		<!-- Reset the repository (optional) -->
 		<!-- <delete dir="${path.source}${version}" /> -->
 		<download repository="${repository}" target="${path.source}${version}" tagName="${tagName}" />
-		
+
 		<!-- Reset the API (recommanded) -->
 		<delete dir="${path.build.api}${version}" />
-		
+
 		<!-- Generate the PHP UML API -->
 		<phpuml source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
 
@@ -39,5 +39,5 @@
 
 		<echo>OK</echo>
 	</target>
-	
+
 </project>

@@ -21,39 +21,39 @@
 
 /**
  * This class is used to download sources
- * 
+ *
  * @author Fabien Udriot <fabien.udriot@ecodev.ch>
  *
  */
 require_once('BaseTask.php');
 
 class Docset extends BaseTask {
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $source = '';
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $target = '';
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $current = '';
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $version = '';
-	
-	
+
+
 	/**
 	 * Prepare commands to generate Docset.
 	 *
@@ -64,17 +64,17 @@ class Docset extends BaseTask {
 		// Initialize task
 		$this->initialize();
 		$this->log('generating Docset file...');
-		
+
 		$commands = array();
 		$commands[] = 'echo 123';
 		$commands[] = 'cd ' . $this->apiPath . $this->version . '/html';
-		
+
 		$commands[] = 'make';
 		$commands[] = 'tar -czf Typo3.tgz org.doxygen.Project.docset';
 		$commands[] = 'cp Typo3.tgz ' . $this->archivePath . 'Typo3.docset.tgz' ;
 		$commands[] = 'mv Typo3.tgz ' . $this->wwwPath;
 
-		
+
 $content = <<<EOF
 <entry>
     <version>TYPO3 4.7</version>
@@ -99,7 +99,7 @@ EOF;
 		$excludePatterns[] = $source . '/typo3/sysext/adodb';
 		return implode(" \\ \n", $excludePatterns);
 	}
-	
+
 	// -------------------------------
     // Set properties from XML
     // -------------------------------
@@ -123,7 +123,7 @@ EOF;
     public function setTarget($target){
         $this->target = $target;
     }
-	
+
     /**
      * Setter for current
 	 *
@@ -133,7 +133,7 @@ EOF;
     public function setCurrent($current){
         $this->current = $current;
     }
-    
+
     /**
      * Setter for version
 	 *
@@ -143,7 +143,7 @@ EOF;
     public function setVersion($version){
         $this->version = $version;
     }
-	
+
 }
 
 ?>

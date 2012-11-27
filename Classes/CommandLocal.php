@@ -21,7 +21,7 @@
 
 /**
  * This class is used to get the status of remote source code
- * 
+ *
  * @author Fabien Udriot <fabien.udriot@ecodev.ch>
  *
  */

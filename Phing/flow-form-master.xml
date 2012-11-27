@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <project name="imported" basedir="." default=""  description="">
 
-	<target name="build-fluid-1.3" depends="bootstrap">
+	<target name="build-flow-form-master" depends="bootstrap">
 		<echo>----------------------------------------</echo>
-		<echo>| Generating Fluid 1.3 API              |</echo>
+		<echo>| Generating Flow Form master API     |</echo>
 		<echo>----------------------------------------</echo>
 
 		<!-- check version http://typo3.org/download/packages/ -->
-		<property name="tagName" value="TYPO3_4-5-7"/>
-		<property name="tagNameDisplay" value="1.3"/>
+		<property name="tagName" value="master"/>
+		<property name="tagNameDisplay" value="master"/>
 		<property name="currentStableVersion" value="false"/>
 
-		<property name="version" value="fluid-1.3"/>
-		<property name="deployPath" value="fluid"/>
-		<property name="deployPathName" value="13"/>
-		<property name="repository" value="git://git.typo3.org/TYPO3v4/CoreProjects/MVC/fluid.git"/>
+		<property name="version" value="flow-form-master"/>
+		<property name="deployPath" value="flow-form"/>
+		<property name="deployPathName" value="master"/>
+		<property name="repository" value="git://git.typo3.org/FLOW3/Packages/TYPO3.Form.git"/>
 
 		<!-- Initialize the environment -->
 		<mkdir dir="${path.build.api}${version}" />
-		<mkdir dir="${path.www}fluid" />
+		<mkdir dir="${path.www}flow-form" />
 
 		<!-- Reset the repository (optional) -->
 		<!-- <delete dir="${path.source}${version}" /> -->
@@ -27,8 +27,8 @@
 		<!-- Reset the API (recommanded) -->
 		<delete dir="${path.build.api}${version}" />
 
-		<!-- Generate the PHP UML API -->
-		<phpuml source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
+		<!-- Generate the API using APIgen -->
+		<commandLocal command="php Libraries/apigen/apigen.php --config ${path.source}${version}/Scripts/api.neon --destination ${path.build.api}${version}" />
 
 
 		<!-- Archive -->

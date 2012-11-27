@@ -21,26 +21,26 @@
 
 /**
  * This class is used to download sources
- * 
+ *
  * @author Fabien Udriot <fabien.udriot@ecodev.ch>
  *
  */
 require_once('BaseTask.php');
 
 class Archive extends BaseTask {
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $source = '';
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $target = '';
-	
+
 	/**
 	 *
 	 * @var string

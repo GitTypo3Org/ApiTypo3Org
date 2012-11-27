@@ -20,8 +20,8 @@
  * ************************************************************* */
 
 /**
- * This class is used to download sources
- * 
+ * Class for initialization environment
+ *
  * @author Fabien Udriot <fabien.udriot@ecodev.ch>
  *
  */
@@ -123,14 +123,6 @@ abstract class BaseTask extends Task {
 				'api' => 'phpuml',
 				'minimumVersion' => '',
 			),
-//			array(
-//				'name' => 'TYPO3',
-//				'label' => 'TYPO3 v4',
-//				'folderName' => 'TYPO3v4',
-//				'repository' => 'git://git.typo3.org/TYPO3v4/Core.git',
-//				'api' => 'doxygen',
-//				'minimumVersion' => '453',
-//			),
 			array(
 				'name' => 'Extbase',
 				'label' => 'Extbase',

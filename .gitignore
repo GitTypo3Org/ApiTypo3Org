@@ -2,3 +2,9 @@ Libraries/PHP_UML/
 Libraries/apigen/
 Phing/configuration.xml
 build.sh
+Libraries/phpDocumentor2/
+composer.phar
+composer.json.lock
+vendor
+bin
+Libraries/*.zip

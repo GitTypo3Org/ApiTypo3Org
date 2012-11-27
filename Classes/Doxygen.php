@@ -21,7 +21,7 @@
 
 /**
  * This class is used to download sources
- * 
+ *
  * @author Fabien Udriot <fabien.udriot@ecodev.ch>
  *
  */
@@ -29,26 +29,26 @@ require_once('BaseTask.php');
 require_once(__DIR__ . '/../Libraries/Template.php');
 
 class Doxygen extends BaseTask {
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $source = '';
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $target = '';
-	
+
 	/**
 	 *
 	 * @var string
 	 */
 	protected $tagName = '';
-	
-	
+
+
 	/**
 	 * Prepare commands to generate API. At the moment, assumes Doxygen will be used to generate the API.
 	 *
@@ -59,7 +59,7 @@ class Doxygen extends BaseTask {
 		// Initialize task
 		$this->initialize();
 		$this->log('generating Doxygen API...');
-		
+
 		$commands = array();
 		$template = new Template($this->homePath . 'Resources/Private/Templates/doxygen.php');
 
@@ -94,7 +94,7 @@ class Doxygen extends BaseTask {
 		$excludePatterns[] = $source . '/typo3/sysext/adodb';
 		return implode(" \\ \n", $excludePatterns);
 	}
-	
+
 	// -------------------------------
     // Set properties from XML
     // -------------------------------
@@ -118,7 +118,7 @@ class Doxygen extends BaseTask {
     public function setTarget($target){
         $this->target = $target;
     }
-	
+
     /**
      * Setter for tagName
 	 *
@@ -128,7 +128,7 @@ class Doxygen extends BaseTask {
     public function setTagName($tagName){
         $this->tagName = $tagName;
     }
-	
+
 }
 
 ?>
