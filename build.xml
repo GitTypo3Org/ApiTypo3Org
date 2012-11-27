@@ -70,17 +70,17 @@
 		<echo>---------------------------------------------</echo>
 		<echo>Usage for Doxygen Documentation</echo>
 		<echo>---------------------------------------------</echo>
-		<echo>phing build-typo3-master       </echo>
-		<echo>phing build-typo3-6.0          </echo><!-- CHANGE ME FOR NEXT VERSION -->
-		<echo>phing build-typo3-4.7          </echo><!-- CHANGE ME FOR NEXT VERSION -->
-		<echo>phing build-typo3-4.6          </echo>
-		<echo>phing build-typo3-4.5          </echo>
+		<echo>phing build-typo3cms-master       </echo>
+		<echo>phing build-typo3cms-6.0          </echo><!-- CHANGE ME FOR NEXT VERSION -->
+		<echo>phing build-typo3cms-4.7          </echo><!-- CHANGE ME FOR NEXT VERSION -->
+		<echo>phing build-typo3cms-4.6          </echo>
+		<echo>phing build-typo3cms-4.5          </echo>
 		<echo/>
 
 		<echo>---------------------------------------------</echo>
 		<echo>Usage for Incubator Documentation</echo>
 		<echo>---------------------------------------------</echo>
-		<echo>phing build-typo3-incubator-file       </echo>
+		<echo>phing build-typo3cms-incubator-file       </echo>
 		<echo/>
 
 		<echo>---------------------------------------------</echo>
@@ -128,13 +128,13 @@
 	</target>
 
 
-	<import file="Phing/typo3-master.xml"/>
-	<import file="Phing/typo3-6.0.xml"/><!-- CHANGE ME FOR NEXT VERSION -->
-	<import file="Phing/typo3-4.7.xml"/>
-	<import file="Phing/typo3-4.6.xml"/>
-	<import file="Phing/typo3-4.5.xml"/>
+	<import file="Phing/typo3cms-master.xml"/>
+	<import file="Phing/typo3cms-6.0.xml"/><!-- CHANGE ME FOR NEXT VERSION -->
+	<import file="Phing/typo3cms-4.7.xml"/>
+	<import file="Phing/typo3cms-4.6.xml"/>
+	<import file="Phing/typo3cms-4.5.xml"/>
 
-	<import file="Phing/typo3-incubator.xml"/>
+	<import file="Phing/typo3cms-incubator.xml"/>
 
 	<import file="Phing/extbase-6.0.xml"/>
 	<import file="Phing/extbase-4.7.xml"/>

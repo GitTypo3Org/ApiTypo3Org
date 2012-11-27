@@ -1,18 +1,19 @@
 <?xml version="1.0"?>
 <project name="imported" basedir="." default=""  description="">
 
-	<target name="build-typo3-4.3" depends="bootstrap">
+	<target name="build-typo3cms-4.5" depends="bootstrap">
 		<echo>----------------------------------------</echo>
-		<echo>| Generating TYPO3 4.3 API              |</echo>
+		<echo>| Generating TYPO3 4.5 API              |</echo>
 		<echo>----------------------------------------</echo>
 
 		<!-- check version http://typo3.org/download/packages/ -->
-		<property name="tagName" value="TYPO3_4-3-13"/>
-		<property name="tagNameDisplay" value="4.3.13"/>
+		<property name="tagName" value="TYPO3_4-5"/>
+		<property name="tagNameDisplay" value="4.5"/>
+		<property name="currentStableVersion" value="false"/>
 
-		<property name="version" value="typo3_src-4.3"/>
+		<property name="version" value="typo3_src-4.5"/>
 		<property name="deployPath" value="typo3cms"/>
-		<property name="deployPathName" value="43"/>
+		<property name="deployPathName" value="45"/>
 		<property name="repository" value="git://git.typo3.org/TYPO3v4/Core.git"/>
 
 		<!-- Initialize the environment -->
@@ -37,20 +38,20 @@
 		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />
 
 		<!-- Deploy -->
-		<deploy version="${version}" deployPath="${deployPath}" deployPathName="${deployPathName}"/>
+		<deploy version="${version}" deployPath="${deployPath}" deployPathName="${deployPathName}" current="${currentStableVersion}"/>
 
 		<echo>OK</echo>
 	</target>
 
 
 	<!-- DEPLOY REMOTE -->
-	<target name="deploy-typo3-4.3" depends="build-typo3-4.3">
+	<target name="deploy-typo3cms-4.5" depends="build-typo3cms-4.5">
 		<echo>----------------------------------------</echo>
-		<echo>| Deploying remotely TYPO3 4.3 API      |</echo>
+		<echo>| Deploying remotely TYPO3 4.5 API      |</echo>
 		<echo>----------------------------------------</echo>
 
-		<property name="version" value="typo3_src-4.3"/>
-		<property name="deployPathName" value="43"/>
+		<property name="version" value="typo3_src-4.5"/>
+		<property name="deployPathName" value="45"/>
 
 		<!-- Copy the archive to the server -->
 		<commandLocal command="scp -q ${path.build.archive}${version}.zip ${server.credentials}:${site.remote.directory}www/archives/ "/>
@@ -60,6 +61,11 @@
 		<commandRemote credentials="${server.credentials}" command="unzip -qq ${site.remote.directory}www/archives/${version}.zip "/>
 		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}www/typo3cms/${deployPathName} "/>
 		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/${version} ${site.remote.directory}www/typo3cms/${deployPathName}"/>
+
+		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}home/${version} "/>
+		<commandRemote credentials="${server.credentials}" command="unzip -qq ${site.remote.directory}www/archives/${version}.zip "/>
+		<commandRemote credentials="${server.credentials}" command="rm -rf ${site.remote.directory}www/typo3cms/current"/>
+		<commandRemote credentials="${server.credentials}" command="mv ${site.remote.directory}home/${version} ${site.remote.directory}www/typo3cms/current"/>
 
 		<echo>OK</echo>
 	</target>

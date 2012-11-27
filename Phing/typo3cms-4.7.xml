@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="imported" basedir="." default=""  description="">
 
-	<target name="build-typo3-4.7" depends="bootstrap">
+	<target name="build-typo3cms-4.7" depends="bootstrap">
 		<echo>----------------------------------------</echo>
 		<echo>| Generating TYPO3 4.7 API              |</echo>
 		<echo>----------------------------------------</echo>

@@ -1,19 +1,16 @@
 <?xml version="1.0"?>
 <project name="imported" basedir="." default=""  description="">
 
-	<target name="build-typo3-4.6" depends="bootstrap">
+	<target name="build-typo3cms-master" depends="bootstrap">
 		<echo>----------------------------------------</echo>
-		<echo>| Generating TYPO3 4.6 API              |</echo>
+		<echo>| Generating TYPO3 master API           |</echo>
 		<echo>----------------------------------------</echo>
 
-		<!-- check version http://typo3.org/download/packages/ -->
-		<property name="tagName" value="TYPO3_4-6"/>
-		<property name="tagNameDisplay" value="4.6"/>
-		<property name="currentStableVersion" value="false"/>
-
-		<property name="version" value="typo3_src-4.6"/>
+		<property name="version" value="typo3_src-master"/>
+		<property name="tagName" value="TYPO3_6-0-0rc2"/>
+		<property name="tagNameDisplay" value="master"/>
 		<property name="deployPath" value="typo3cms"/>
-		<property name="deployPathName" value="46"/>
+		<property name="deployPathName" value="master"/>
 		<property name="repository" value="git://git.typo3.org/TYPO3v4/Core.git"/>
 
 		<!-- Initialize the environment -->
@@ -38,7 +35,7 @@
 		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />
 
 		<!-- Deploy -->
-		<deploy version="${version}" deployPath="${deployPath}" deployPathName="${deployPathName}" current="${currentStableVersion}"/>
+		<deploy version="${version}" deployPath="${deployPath}" deployPathName="${deployPathName}" />
 
 		<echo>OK</echo>
 	</target>
