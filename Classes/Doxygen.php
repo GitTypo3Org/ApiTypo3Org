@@ -92,6 +92,7 @@ class Doxygen extends BaseTask {
 
 		$excludePatterns[] = $source . '/typo3/contrib';
 		$excludePatterns[] = $source . '/typo3/sysext/adodb';
+		$excludePatterns[] = $source . '/typo3/sysext/fluid';
 		return implode(" \\ \n", $excludePatterns);
 	}
 

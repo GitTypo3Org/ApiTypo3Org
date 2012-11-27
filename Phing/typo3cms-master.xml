@@ -7,7 +7,7 @@
 		<echo>----------------------------------------</echo>
 
 		<property name="version" value="typo3_src-master"/>
-		<property name="tagName" value="TYPO3_6-0-0rc2"/>
+		<property name="tagName" value="master"/>
 		<property name="tagNameDisplay" value="master"/>
 		<property name="deployPath" value="typo3cms"/>
 		<property name="deployPathName" value="master"/>
