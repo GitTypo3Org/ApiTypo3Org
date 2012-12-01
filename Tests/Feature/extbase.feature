@@ -1,7 +1,6 @@
 Feature: Hello World Feature
-  In order to ensure the basic feature of the application
   As a User
-  I want to make sure I can see exported data
+  I want to make sure I can see the Extbase API
 
   @base
   Scenario: API for Extbase current is live

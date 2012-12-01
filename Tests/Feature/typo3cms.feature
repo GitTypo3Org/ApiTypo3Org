@@ -1,7 +1,6 @@
 Feature: Hello World Feature
-  In order to ensure the basic feature of the application
   As a User
-  I want to make sure I can see exported data
+  I want to make sure I can see the TYPO3 CMS API
 
 #  @todo: redirection status code does not work
 #  @base

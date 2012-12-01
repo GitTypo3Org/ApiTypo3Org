@@ -66,7 +66,7 @@ class Deploy extends BaseTask {
 		$this->log('deploying documentation...');
 
 		// Update the ZIP repository
-		$commands[] = 'echo "Options +Indexes -FollowSymLinks -Includes" > ' . $this->wwwPath . 'archives/.htaccess';
+		$commands[] = 'echo "Options +Indexes +FollowSymLinks -Includes" > ' . $this->wwwPath . 'archives/.htaccess';
 
 		$archiveFile = $this->archivePath . $this->version . '.zip';
 		$commands[] = 'rsync -a ' . $archiveFile . ' ' . $this->wwwPath . 'archives';
