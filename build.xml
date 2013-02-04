@@ -95,7 +95,8 @@
 		<echo>phing build-fluid-1.3      </echo>
 		<echo/>
 		<echo>phing build-flow-master   </echo>
-		<echo>phing build-flow-1.0      </echo>
+		<echo>phing build-flow-2.0      </echo>
+		<echo>phing build-flow-1.1      </echo>
 		<echo/>
 
 		<echo>---------------------------------------------</echo>
@@ -148,6 +149,8 @@
 
 	<!--<import file="Phing/flow-1.0.xml"/>-->
 	<import file="Phing/flow-master.xml"/>
+	<import file="Phing/flow-2.0.xml"/>
+	<import file="Phing/flow-1.1.xml"/>
 
 	<import file="Phing/flow-form-master.xml"/>
 </project>

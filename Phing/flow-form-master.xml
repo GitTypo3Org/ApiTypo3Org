@@ -11,7 +11,7 @@
 		<property name="tagNameDisplay" value="master"/>
 		<property name="currentStableVersion" value="false"/>
 
-		<property name="version" value="flow-form-master"/>
+		<property name="version" value="typo3-flow-form-master"/>
 		<property name="deployPath" value="flow-form"/>
 		<property name="deployPathName" value="master"/>
 		<property name="repository" value="git://git.typo3.org/FLOW3/Packages/TYPO3.Form.git"/>
@@ -29,7 +29,6 @@
 
 		<!-- Generate the API using APIgen -->
 		<commandLocal command="php Libraries/apigen/apigen.php --config ${path.source}${version}/Scripts/api.neon --destination ${path.build.api}${version}" />
-
 
 		<!-- Archive -->
 		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />

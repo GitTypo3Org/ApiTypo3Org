@@ -11,7 +11,7 @@
 		<property name="tagNameDisplay" value="4.6"/>
 		<property name="currentStableVersion" value="false"/>
 
-		<property name="version" value="typo3_src-4.6"/>
+		<property name="version" value="typo3-cms-4.6"/>
 		<property name="deployPath" value="typo3cms"/>
 		<property name="deployPathName" value="46"/>
 		<property name="repository" value="git://git.typo3.org/TYPO3v4/Core.git"/>

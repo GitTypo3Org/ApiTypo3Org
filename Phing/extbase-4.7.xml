@@ -11,7 +11,7 @@
 		<property name="tagNameDisplay" value="4.7"/>
 		<property name="currentStableVersion" value="false"/>
 
-		<property name="version" value="extbase-4.7"/>
+		<property name="version" value="typo3-cms-extbase-4.7"/>
 		<property name="deployPath" value="extbase"/>
 		<property name="deployPathName" value="47"/>
 		<property name="repository" value="git://git.typo3.org/TYPO3v4/CoreProjects/MVC/extbase.git"/>

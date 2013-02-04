@@ -11,7 +11,7 @@
 		<property name="tagNameDisplay" value="6.0"/><!-- CHANGE ME FOR NEXT VERSION -->
 		<property name="currentStableVersion" value="true"/><!-- CHANGE ME FOR NEXT VERSION -->
 
-		<property name="version" value="fluid-6.0"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="version" value="typo3-cms-fluid-6.0"/><!-- CHANGE ME FOR NEXT VERSION -->
 		<property name="deployPath" value="fluid"/>
 		<property name="deployPathName" value="60"/><!-- CHANGE ME FOR NEXT VERSION -->
 		<property name="repository" value="git://git.typo3.org/TYPO3v4/CoreProjects/MVC/fluid.git"/>

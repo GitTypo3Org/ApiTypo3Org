@@ -3,15 +3,15 @@
 
 	<target name="build-flow-2.0" depends="bootstrap">
 		<echo>----------------------------------------</echo>
-		<echo>| Generating Flow 1.0 API              |</echo>
+		<echo>| Generating Flow 2.0 API              |</echo>
 		<echo>----------------------------------------</echo>
 
 		<!-- check version http://typo3.org/download/packages/ -->
-		<property name="tagName" value="FLOW3-1.0.6"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
+		<property name="tagName" value="2.0"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
 		<property name="tagNameDisplay" value="2.0"/><!-- MINOR: CHANGE ME NEXT VERSION OF TYPO3 -->
 		<property name="currentStableVersion" value="true"/><!-- MAJOR: CHANGE ME NEXT VERSION OF TYPO3 -->
 
-		<property name="version" value="flow-2.0"/>
+		<property name="version" value="typo3-flow-2.0"/>
 		<property name="deployPath" value="flow"/>
 		<property name="deployPathName" value="20"/>
 		<property name="repository" value="git://git.typo3.org/FLOW3/Packages/TYPO3.FLOW3.git"/>
@@ -29,7 +29,6 @@
 
 		<!-- Generate the PHP UML API -->
 		<phpuml source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
-
 
 		<!-- Archive -->
 		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />

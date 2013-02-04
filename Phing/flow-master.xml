@@ -11,7 +11,7 @@
 		<property name="tagNameDisplay" value="master"/>
 		<property name="currentStableVersion" value="false"/>
 
-		<property name="version" value="flow-master"/>
+		<property name="version" value="typo3-flow-master"/>
 		<property name="deployPath" value="flow"/>
 		<property name="deployPathName" value="master"/>
 		<property name="repository" value="git://git.typo3.org/FLOW3/Packages/TYPO3.FLOW3.git"/>
@@ -29,7 +29,6 @@
 
 		<!-- Generate the PHP UML API -->
 		<phpuml source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
-
 
 		<!-- Archive -->
 		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />

@@ -71,7 +71,6 @@ class Deploy extends BaseTask {
 		$archiveFile = $this->archivePath . $this->version . '.zip';
 		$commands[] = 'rsync -a ' . $archiveFile . ' ' . $this->wwwPath . 'archives';
 
-
 		$apiDirectory = $this->apiPath . $this->version;
 		$commands[] = 'rsync -a --delete ' . $apiDirectory . '/ ' . $this->wwwPath . $this->deployPath . '/' . $this->deployPathName;
 

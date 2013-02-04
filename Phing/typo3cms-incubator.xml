@@ -6,7 +6,7 @@
 		<echo>| Generating TYPO3 Incubator API        |</echo>
 		<echo>----------------------------------------</echo>
 
-		<property name="version" value="typo3_src-incubator"/>
+		<property name="version" value="typo3-cms-incubator"/>
 		<property name="tagName" value="project-fileabstraction"/>
 		<property name="tagNameDisplay" value="fileabstraction"/>
 		<property name="deployPath" value="incubator"/>
