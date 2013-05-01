@@ -30,7 +30,6 @@
 		<!-- Generate the PHP UML API -->
 		<phpuml source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
 
-
 		<!-- Archive -->
 		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />
 

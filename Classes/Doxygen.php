@@ -90,7 +90,32 @@ class Doxygen extends BaseTask {
 	 */
 	protected function getExcludePath($source) {
 
+		// Add more excluded paths for TYPO3 6.0
+		if (preg_match('/typo3-cms-6/', $source)) {
+			$excludePatterns[] = $source . '/t3lib';
+			$excludePatterns[] = $source . '/typo3/sysext/core/Migrations/Code/LegacyClassesForIde.php';
+			$excludePatterns[] = $source . '/typo3/sysext/extbase/Tests';
+			$excludePatterns[] = $source . '/typo3/sysext/cms';
+			$excludePatterns[] = $source . '/typo3/sysext/cshmanual';
+			$excludePatterns[] = $source . '/typo3/sysext/core/Tests';
+			$excludePatterns[] = $source . '/typo3/sysext/form/Tests';
+
+			$excludePatterns[] = $source . '/typo3/class.browse_links.php';
+			$excludePatterns[] = $source . '/typo3/class.db_list.inc';
+			$excludePatterns[] = $source . '/typo3/class.db_list_extra.inc';
+			$excludePatterns[] = $source . '/typo3/class.file_list.inc';
+			$excludePatterns[] = $source . '/typo3/class.filelistfoldertree.php';
+			$excludePatterns[] = $source . '/typo3/class.show_rechis.inc';
+			$excludePatterns[] = $source . '/typo3/class.webpagetree.php';
+			$excludePatterns[] = $source . '/typo3/show_item.php';
+			$excludePatterns[] = $source . '/typo3/move_el.php';
+			$excludePatterns[] = $source . '/typo3/wizard_tsconfig.php';
+			$excludePatterns[] = $source . '/typo3/db_new.php';
+			$excludePatterns[] = $source . '/typo3/sysext/rtehtmlarea/class.tx_rtehtmlareaapi.php';
+		}
+
 		$excludePatterns[] = $source . '/typo3/contrib';
+		$excludePatterns[] = $source . '/typo3/sysext/openid';
 		$excludePatterns[] = $source . '/typo3/sysext/adodb';
 		$excludePatterns[] = $source . '/typo3/sysext/fluid';
 		return implode(" \\ \n", $excludePatterns);
