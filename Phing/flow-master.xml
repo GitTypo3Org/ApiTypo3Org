@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="imported" basedir="." default=""  description="">
+<project name="imported" basedir="." description="">
 
 	<target name="build-flow-master" depends="bootstrap">
 		<echo>----------------------------------------</echo>

@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <project name="imported" basedir="." description="">
 
-	<target name="build-typo3cms-6.0" depends="bootstrap">
+	<target name="build-typo3cms-6.1" depends="bootstrap"><!-- CHANGE ME FOR NEXT VERSION -->
 		<echo>----------------------------------------</echo>
-		<echo>| Generating TYPO3 6.0 API              |</echo>
+		<echo>| Generating TYPO3 6.1 API              |</echo><!-- CHANGE ME FOR NEXT VERSION -->
 		<echo>----------------------------------------</echo>
 
 		<!-- check version http://typo3.org/download/packages/ -->
-		<property name="tagName" value="TYPO3_6-0"/>
-		<property name="tagNameDisplay" value="6.0"/>
-		<property name="currentStableVersion" value="false"/>
+		<property name="tagName" value="TYPO3_6-1"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="tagNameDisplay" value="6.1"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="currentStableVersion" value="true"/><!-- CHANGE ME FOR NEXT VERSION -->
 
-		<property name="version" value="typo3-cms-6.0"/>
+		<property name="version" value="typo3-cms-6.1"/><!-- CHANGE ME FOR NEXT VERSION -->
 		<property name="deployPath" value="typo3cms"/>
-		<property name="deployPathName" value="60"/>
+		<property name="deployPathName" value="61"/><!-- CHANGE ME FOR NEXT VERSION -->
 		<property name="repository" value="git://git.typo3.org/TYPO3v4/Core.git"/>
 
 		<!-- Initialize the environment -->
@@ -35,6 +35,11 @@
 
 		<!-- Generate the Doxygen API -->
 		<doxygen source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
+
+		<!-- Generate the Docset -->
+		<!-- CHANGE ME FOR NEXT VERSION -->
+		<!-- Will work solely on OSX because of command "docsetutil" -->
+		<!-- <docset source="${path.source}${version}" target="${path.build.api}${version}" version="${version}" current="${currentStableVersion}"/> -->
 
 		<!-- Archive -->
 		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />

@@ -4,7 +4,6 @@ Phing/configuration.xml
 build.sh
 Libraries/phpDocumentor2/
 composer.phar
-composer.json.lock
 vendor
 bin
 Libraries/*.zip

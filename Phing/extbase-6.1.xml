@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <project name="imported" basedir="." description="">
 
-	<target name="build-flow-1.1" depends="bootstrap">
+	<target name="build-extbase-6.1" depends="bootstrap"><!-- CHANGE ME FOR NEXT VERSION -->
 		<echo>----------------------------------------</echo>
-		<echo>| Generating Flow 1.1 API              |</echo>
+		<echo>| Generating Extbase 6.1 API              |</echo><!-- CHANGE ME FOR NEXT VERSION -->
 		<echo>----------------------------------------</echo>
 
 		<!-- check version http://typo3.org/download/packages/ -->
-		<property name="tagName" value="FLOW3-1.1"/>
-		<property name="tagNameDisplay" value="1.1"/>
-		<property name="currentStableVersion" value="false"/>
+		<property name="tagName" value="extbase_6-1"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="tagNameDisplay" value="6.1"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="currentStableVersion" value="true"/><!-- CHANGE ME FOR NEXT VERSION -->
 
-		<property name="version" value="typo3-flow3-1.1"/>
-		<property name="deployPath" value="flow"/>
-		<property name="deployPathName" value="11"/>
-		<property name="repository" value="git://git.typo3.org/FLOW3/Packages/TYPO3.FLOW3.git"/>
+		<property name="version" value="typo3-cms-extbase-6.1"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="deployPath" value="extbase"/>
+		<property name="deployPathName" value="61"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="repository" value="git://git.typo3.org/TYPO3v4/CoreProjects/MVC/extbase.git"/>
 
 		<!-- Initialize the environment -->
 		<mkdir dir="${path.build.api}${version}" />
-		<mkdir dir="${path.www}${deployPath}"/>
+		<mkdir dir="${path.www}extbase" />
 
 		<!-- Reset the repository (optional) -->
 		<!-- <delete dir="${path.source}${version}" /> -->
@@ -29,6 +29,7 @@
 
 		<!-- Generate the PHP UML API -->
 		<phpuml source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
+
 
 		<!-- Archive -->
 		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />

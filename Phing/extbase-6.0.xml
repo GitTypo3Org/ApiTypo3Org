@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
-<project name="imported" basedir="." default=""  description="">
+<project name="imported" basedir="." description="">
 
-	<target name="build-extbase-6.0" depends="bootstrap"><!-- CHANGE ME FOR NEXT VERSION -->
+	<target name="build-extbase-6.0" depends="bootstrap">
 		<echo>----------------------------------------</echo>
-		<echo>| Generating Extbase 6.0 API              |</echo><!-- CHANGE ME FOR NEXT VERSION -->
+		<echo>| Generating Extbase 6.0 API              |</echo>
 		<echo>----------------------------------------</echo>
 
 		<!-- check version http://typo3.org/download/packages/ -->
-		<property name="tagName" value="extbase_6-0"/><!-- CHANGE ME FOR NEXT VERSION -->
-		<property name="tagNameDisplay" value="6.0"/><!-- CHANGE ME FOR NEXT VERSION -->
-		<property name="currentStableVersion" value="true"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="tagName" value="extbase_6-0"/>
+		<property name="tagNameDisplay" value="6.0"/>
+		<property name="currentStableVersion" value="false"/>
 
-		<property name="version" value="typo3-cms-extbase-6.0"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="version" value="typo3-cms-extbase-6.0"/>
 		<property name="deployPath" value="extbase"/>
-		<property name="deployPathName" value="60"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="deployPathName" value="60"/>
 		<property name="repository" value="git://git.typo3.org/TYPO3v4/CoreProjects/MVC/extbase.git"/>
 
 		<!-- Initialize the environment -->
