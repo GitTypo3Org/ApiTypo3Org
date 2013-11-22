@@ -7,6 +7,7 @@
 		<echo>----------------------------------------</echo>
 
 		<!-- check version http://typo3.org/download/packages/ -->
+		<property name="projectName" value="TYPO3 CMS API"/>
 		<property name="tagName" value="TYPO3_6-1"/><!-- CHANGE ME FOR NEXT VERSION -->
 		<property name="tagNameDisplay" value="6.1"/><!-- CHANGE ME FOR NEXT VERSION -->
 		<property name="currentStableVersion" value="true"/><!-- CHANGE ME FOR NEXT VERSION -->
@@ -35,6 +36,9 @@
 
 		<!-- Generate the Doxygen API -->
 		<doxygen source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
+
+		<!-- Generate the Intersphinx mapping -->
+		<intersphinx directoryXml="${path.build.api}${version}/xml" directoryOutput="${path.build.api}${version}/html" projectName="${projectName}" projectVersion="${tagNameDisplay}" />
 
 		<!-- Generate the Docset -->
 		<!-- CHANGE ME FOR NEXT VERSION -->

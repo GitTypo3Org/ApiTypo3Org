@@ -6,6 +6,7 @@
 		<echo>| Generating TYPO3 master API           |</echo>
 		<echo>----------------------------------------</echo>
 
+		<property name="projectName" value="TYPO3 CMS API"/>
 		<property name="version" value="typo3-cms-master"/>
 		<property name="tagName" value="master"/>
 		<property name="tagNameDisplay" value="master"/>
@@ -30,6 +31,9 @@
 		</delete>
 		<!-- Generate the Doxygen API -->
 		<doxygen source="${path.source}${version}" target="${path.build.api}${version}" tagName="${tagNameDisplay}" />
+
+		<!-- Generate the Intersphinx mapping -->
+		<intersphinx directoryXml="${path.build.api}${version}/xml" directoryOutput="${path.build.api}${version}/html" projectName="${projectName}" projectVersion="${tagNameDisplay}" />
 
 		<!-- Archive -->
 		<archive source="${path.build.api}${version}" target="${path.build.archive}" version="${version}" />

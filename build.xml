@@ -57,6 +57,7 @@
 	<!-- TASK DEFINITION -->
 	<taskdef name="download" classname="Download" classpathref="phingClasses"/>
 	<taskdef name="doxygen" classname="Doxygen" classpathref="phingClasses"/>
+	<taskdef name="intersphinx" classname="Intersphinx" classpathref="phingClasses"/>
 	<taskdef name="docset" classname="Docset" classpathref="phingClasses"/>
 	<taskdef name="phpuml" classname="PHPUML" classpathref="phingClasses"/>
 	<taskdef name="archive" classname="Archive" classpathref="phingClasses"/>
