@@ -9,7 +9,7 @@
 		<!-- check version http://typo3.org/download/packages/ -->
 		<property name="tagName" value="fluid_6-0"/>
 		<property name="tagNameDisplay" value="6.0"/>
-		<property name="currentStableVersion" value="true"/>
+		<property name="currentStableVersion" value="false"/>
 
 		<property name="version" value="typo3-cms-fluid-6.0"/>
 		<property name="deployPath" value="fluid"/>
