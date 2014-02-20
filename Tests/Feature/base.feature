@@ -3,6 +3,6 @@ Feature: Hello World Feature
   I want to make sure I can see the necessary things
 
   @base
-  Scenario: API for Extbase current is live
+  Scenario: API landing page is live
     Given I am on "archives"
     Then the response status code should be 200

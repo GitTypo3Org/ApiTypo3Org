@@ -32,13 +32,3 @@ Feature: Hello World Feature
   Scenario: API for TYPO3 CMS current is live
     Given I am on "typo3cms/current/html/"
     Then the response status code should be 200
-
-  @base
-  Scenario: API for Extbase current is live
-    Given I am on "extbase/current/"
-    Then the response status code should be 200
-
-  @base
-  Scenario: API for Flow current is live
-    Given I am on "extbase/current/"
-    Then the response status code should be 200
