@@ -1,11 +1,9 @@
 Libraries/PHP_UML/
 Libraries/apigen/
 Phing/configuration.xml
-build.sh
 Libraries/phpDocumentor2/
 composer.phar
 vendor
-bin
 Libraries/*.zip
 html
 latex
