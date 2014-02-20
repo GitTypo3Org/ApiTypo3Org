@@ -7,3 +7,4 @@ vendor
 Libraries/*.zip
 html
 latex
+.idea
