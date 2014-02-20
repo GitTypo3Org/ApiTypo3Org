@@ -15,7 +15,7 @@
 		<property name="version" value="typo3-cms-6.1"/><!-- CHANGE ME FOR NEXT VERSION -->
 		<property name="deployPath" value="typo3cms"/>
 		<property name="deployPathName" value="61"/><!-- CHANGE ME FOR NEXT VERSION -->
-		<property name="repository" value="git://git.typo3.org/TYPO3v4/Core.git"/>
+		<property name="repository" value="git://git.typo3.org/Packages/TYPO3.CMS.git"/>
 
 		<!-- Initialize the environment -->
 		<mkdir dir="${path.build.api}${version}" />
@@ -23,7 +23,8 @@
 
 		<!-- Reset the repository (optional) -->
 		<!-- <delete dir="${path.source}${version}" /> -->
-		<download repository="${repository}" target="${path.source}${version}" tagName="${tagName}" submoduleDirectory="${path.source}${version}/typo3/sysext" />
+		<!--download repository="${repository}" target="${path.source}${version}" tagName="${tagName}" submoduleDirectory="${path.source}${version}/typo3/sysext" /-->
+		<download repository="${repository}" target="${path.source}${version}" tagName="${tagName}" />
 
 		<!-- Reset the API (recommanded) -->
 
