@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <project name="imported" basedir="." description="">
 
-	<target name="build-typo3cms-6.1" depends="bootstrap"><!-- CHANGE ME FOR NEXT VERSION -->
+	<target name="build-typo3cms-6.2" depends="bootstrap"><!-- CHANGE ME FOR NEXT VERSION -->
 		<echo>----------------------------------------</echo>
-		<echo>| Generating TYPO3 6.1 API              |</echo><!-- CHANGE ME FOR NEXT VERSION -->
+		<echo>| Generating TYPO3 6.2 API              |</echo><!-- CHANGE ME FOR NEXT VERSION -->
 		<echo>----------------------------------------</echo>
 
 		<!-- check version http://typo3.org/download/packages/ -->
 		<property name="projectName" value="TYPO3 CMS API"/>
-		<property name="tagName" value="TYPO3_6-1"/><!-- CHANGE ME FOR NEXT VERSION -->
-		<property name="tagNameDisplay" value="6.1"/><!-- CHANGE ME FOR NEXT VERSION -->
-		<property name="currentStableVersion" value="false"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="tagName" value="TYPO3_6-2"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="tagNameDisplay" value="6.2"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="currentStableVersion" value="true"/><!-- CHANGE ME FOR NEXT VERSION -->
 
-		<property name="version" value="typo3-cms-6.1"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="version" value="typo3-cms-6.2"/><!-- CHANGE ME FOR NEXT VERSION -->
 		<property name="deployPath" value="typo3cms"/>
-		<property name="deployPathName" value="61"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="deployPathName" value="62"/><!-- CHANGE ME FOR NEXT VERSION -->
 		<property name="repository" value="git://git.typo3.org/Packages/TYPO3.CMS.git"/>
 
 		<!-- Initialize the environment -->

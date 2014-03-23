@@ -72,7 +72,8 @@
 		<echo>Usage for Doxygen Documentation</echo>
 		<echo>---------------------------------------------</echo>
 		<echo>phing build-typo3cms-master       </echo>
-		<echo>phing build-typo3cms-6.1          </echo><!-- CHANGE ME FOR NEXT VERSION -->
+		<echo>phing build-typo3cms-6.2          </echo><!-- CHANGE ME FOR NEXT VERSION -->
+		<echo>phing build-typo3cms-6.1          </echo>
 		<echo>phing build-typo3cms-6.0          </echo>
 		<echo>phing build-typo3cms-4.7          </echo>
 		<echo>phing build-typo3cms-4.6          </echo>
@@ -128,10 +129,11 @@
 
 
 	<import file="Phing/typo3cms-master.xml"/>
-	<import file="Phing/typo3cms-6.1.xml"/><!-- CHANGE ME FOR NEXT VERSION -->
+	<import file="Phing/typo3cms-6.2.xml"/><!-- CHANGE ME FOR NEXT VERSION -->
+	<import file="Phing/typo3cms-6.1.xml"/>
 	<import file="Phing/typo3cms-6.0.xml"/>
 	<import file="Phing/typo3cms-4.7.xml"/>
-	<import file="Phing/typo3cms-4.6.xml"/>
+	<!--import file="Phing/typo3cms-4.6.xml"/-->
 	<import file="Phing/typo3cms-4.5.xml"/>
 
 	<!--<import file="Phing/flow-1.0.xml"/>-->
