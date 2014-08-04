@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013 Xavier Perseguers <xavier@causal.ch>
+ *  (c) 2013-2014 Xavier Perseguers <xavier@causal.ch>
  *  All rights reserved
  *
  *  You can redistribute this script and/or modify it under the
@@ -219,7 +219,13 @@ class Intersphinx extends BaseTask {
 	 * @return string
 	 */
 	protected function createIndexEntry($anchor, $target, $label) {
-		//$this->debug('New index entry "' . $anchor . '": ' . $label);
+		$anchor = trim($anchor);
+		$target = trim($target);
+		$label = trim($label);
+		if (empty($anchor) || empty($target) || empty($label)) {
+			return;
+		}
+
 		$indexEntry = $anchor . ' std:label -1 ' . $target . ' ' . $label;
 		$this->indexEntries[] = $indexEntry;
 	}
