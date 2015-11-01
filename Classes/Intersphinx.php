@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2014 Xavier Perseguers <xavier@causal.ch>
+ *  (c) 2013-2015 Xavier Perseguers <xavier@causal.ch>
  *  All rights reserved
  *
  *  You can redistribute this script and/or modify it under the
@@ -60,7 +60,9 @@ class Intersphinx extends BaseTask {
 
 		$this->indexEntries = array();
 		$this->addGenericIndexEntries();
-		$inputFiles = $this->findXmlFiles();
+		$classInputFiles = $this->findXmlFiles('class_');
+		$interfaceInputFiles = $this->findXmlFiles('interface_');
+		$inputFiles = array_merge($classInputFiles, $interfaceInputFiles);
 
 		foreach ($inputFiles as $file) {
 			//$this->debug('Processing ' . $file);
