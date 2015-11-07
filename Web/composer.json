@@ -1,0 +1,9 @@
+{
+	"config": {
+		"vendor-dir": "Packages/Libraries",
+		"bin-dir": "bin"
+	},
+	"require": {
+		"erusev/parsedown": "1.0.*"
+	}
+}

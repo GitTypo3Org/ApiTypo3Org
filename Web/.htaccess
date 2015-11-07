@@ -1,0 +1,14 @@
+DirectoryIndex index.html index.php
+
+Options +Indexes +FollowSymLinks +Includes
+
+# PRODUCT RENAMING
+RewriteEngine on
+#RewriteRule ^(pics/.*) http://srv06.typo3.org/$1 [L]
+RewriteRule   ^favicon.ico  https://typo3.org/favicon.ico  [R=301,L]
+
+# TYPO3 REDIRECTION
+RedirectMatch 301 typo3cms$|typo3cms/$ http://api.typo3.org/typo3cms/current/html/
+RedirectMatch 301 typo3cms\/current$|typo3cms\/current/$ http://api.typo3.org/typo3cms/current/html/
+RedirectMatch 301 typo3cms\/master$|typo3cms\/master/$ http://api.typo3.org/typo3cms/master/html/
+RedirectMatch 301 typo3cms\/6.2\/*$|typo3cms\/62\/*$ http://api.typo3.org/typo3cms/62/html/
