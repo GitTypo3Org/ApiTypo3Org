@@ -1,7 +1,7 @@
 Libraries/PHP_UML/
 Libraries/apigen/
-Phing/configuration.xml
 Libraries/phpDocumentor2/
+Temporary/
 composer.phar
 vendor
 Libraries/*.zip

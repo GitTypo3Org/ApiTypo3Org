@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<project name="imported" basedir="." description="Configuration">
+	<property name="path.home" value="/var/www/vhosts/api.typo3.org/home/APIBuilder/"/>
+	<property name="path.storage" value="${path.home}Temporary/"/>
+	<property name="path.www" value="${path.home}Web/"/>
+	<property name="command.doyxgen" value="/usr/local/doxygen/bin/doxygen"/>
+</project>

@@ -34,8 +34,7 @@
 	<property name="command.doxygen" value="/usr/bin/doxygen"/>
 	<property name="path.build.archive" value="${path.build}Zip/"/>
 	<property name="path.build.api" value="${path.build}Api/"/>
-	<property name="path.temporary" value="${path.storage}Temporary/"/>
-
+	<property name="path.temporary" value="${path.storage}/"/>
 
 	<!-- RUNNING VARIABLES -->
 
