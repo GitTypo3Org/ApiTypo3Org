@@ -1,16 +1,6 @@
 <?xml version="1.0"?>
 <project name="" basedir="." default="help"  description="Generate the API for TYPO3">
 
-
-	<!--
-		@todo: rename typo3_src to typo3_src
-		@todo: rename typo3 cms to the new name
-		@todo: add FLOW3 beta1
-		@todo: remove old Tasks in this phing
-		@todo: perhaps some source / target attribute can be computed with project environment variables
-		@todo: clean up server "archive" + "Source folder" can be deleted to regenerate the environment
-	-->
-
  	<!-- PROPERTIES DECLARATION -->
 	<property name="dryRun" value="${dryRun}"/>
 	<property name="force" value="${force}"/>
@@ -59,7 +49,6 @@
 	<taskdef name="doxygen" classname="Doxygen" classpathref="phingClasses"/>
 	<taskdef name="intersphinx" classname="Intersphinx" classpathref="phingClasses"/>
 	<taskdef name="docset" classname="Docset" classpathref="phingClasses"/>
-	<taskdef name="phpuml" classname="PHPUML" classpathref="phingClasses"/>
 	<taskdef name="archive" classname="Archive" classpathref="phingClasses"/>
 	<taskdef name="deploy" classname="Deploy" classpathref="phingClasses"/>
 	<taskdef name="rsync" classname="Rsync" classpathref="phingClasses"/>
@@ -79,30 +68,6 @@
 		<echo>phing build-typo3cms-4.6          </echo>
 		<echo>phing build-typo3cms-4.5          </echo>
 		<echo/>
-
-		<echo>---------------------------------------------</echo>
-		<echo>Usage for PHPUML Documentation</echo>
-		<echo>---------------------------------------------</echo>
-		<echo>phing build-extbase-master </echo>
-		<echo>phing build-extbase-6.1    </echo><!-- CHANGE ME FOR NEXT VERSION -->
-		<echo>phing build-extbase-6.0    </echo>
-		<echo>phing build-extbase-1.3    </echo>
-		<echo/>
-		<echo>phing build-fluid-master   </echo>
-		<echo>phing build-fluid-6.1      </echo><!-- CHANGE ME FOR NEXT VERSION -->
-		<echo>phing build-fluid-6.0      </echo>
-		<echo>phing build-fluid-1.3      </echo>
-		<echo/>
-		<echo>phing build-flow-master   </echo>
-		<echo>phing build-flow-2.0      </echo>
-		<echo>phing build-flow-1.1      </echo>
-		<echo/>
-
-		<echo>---------------------------------------------</echo>
-		<echo>Usage for APIGen Documentation</echo>
-		<echo>---------------------------------------------</echo>
-		<echo>phing build-flow-form-master </echo>
-		<echo />
 
 		<echo>---------------------------------------------</echo>
 		<echo>Possible options</echo>
@@ -130,16 +95,10 @@
 
 	<import file="Phing/typo3cms-master.xml"/>
 	<import file="Phing/typo3cms-6.2.xml"/><!-- CHANGE ME FOR NEXT VERSION -->
-	<import file="Phing/typo3cms-6.1.xml"/>
-	<import file="Phing/typo3cms-6.0.xml"/>
-	<import file="Phing/typo3cms-4.7.xml"/>
+	<!--<import file="Phing/typo3cms-6.1.xml"/>-->
+	<!--<import file="Phing/typo3cms-6.0.xml"/>-->
+	<!--<import file="Phing/typo3cms-4.7.xml"/>-->
 	<!--import file="Phing/typo3cms-4.6.xml"/-->
-	<import file="Phing/typo3cms-4.5.xml"/>
+	<!--<import file="Phing/typo3cms-4.5.xml"/>-->
 
-	<!--<import file="Phing/flow-1.0.xml"/>-->
-	<import file="Phing/flow-master.xml"/>
-	<import file="Phing/flow-2.0.xml"/>
-	<import file="Phing/flow-1.1.xml"/>
-
-	<import file="Phing/flow-form-master.xml"/>
 </project>

@@ -114,32 +114,7 @@ abstract class BaseTask extends Task {
 		}
 
 		// Define sources
-		$this->sources = array(
-			array(
-				'name' => 'FLOW3',
-				'label' => 'FLOW3',
-				'folderName' => 'FLOW3',
-				'repository' => 'git://git.typo3.org/FLOW3/Packages/FLOW3.git',
-				'api' => 'phpuml',
-				'minimumVersion' => '',
-			),
-			array(
-				'name' => 'Extbase',
-				'label' => 'Extbase',
-				'folderName' => 'Extbase',
-				'repository' => 'git://git.typo3.org/TYPO3v4/CoreProjects/MVC/extbase.git',
-				'api' => 'phpuml',
-				'minimumVersion' => '120',
-			),
-			array(
-				'name' => 'Fluid',
-				'label' => 'Fluid',
-				'folderName' => 'Fluid',
-				'repository' => 'git://git.typo3.org/TYPO3v4/CoreProjects/MVC/fluid.git',
-				'api' => 'phpuml',
-				'minimumVersion' => '120',
-			),
-		);
+		$this->sources = array();
 
 		$this->checkEnvironment();
 	}
