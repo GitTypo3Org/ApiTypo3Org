@@ -5,64 +5,68 @@
  */
 require_once('BaseTask.php');
 
-class CommandRemote extends BaseTask {
+class CommandRemote extends BaseTask
+{
 
-	/**
-	 * @var string
-	 */
-	protected $credentials = '';
-	/**
-	 * @var string
-	 */
-	protected $command = '';
+    /**
+     * @var string
+     */
+    protected $credentials = '';
+    /**
+     * @var string
+     */
+    protected $command = '';
 
-	/**
-	 * Main entry point.
-	 *
-	 * @return void
-	 */
-	public function main() {
+    /**
+     * Main entry point.
+     *
+     * @return void
+     */
+    public function main()
+    {
 
-		// Initialize task
-		$this->initialize();
+        // Initialize task
+        $this->initialize();
 
-		// Makes sure it is possible to connect to the server
-		if ($this->credentials == '') {
-			throw new Exception("Exception thrown #1300533385: credentials is empty can not connect to the server\n", 1300533385);
-		}
+        // Makes sure it is possible to connect to the server
+        if ($this->credentials == '') {
+            throw new Exception("Exception thrown #1300533385: credentials is empty can not connect to the server\n", 1300533385);
+        }
 
-		// commands that will retrieve the status of the remote working copy
-		$command = 'ssh ' . $this->credentials . " '" . $this->command . "'";
+        // commands that will retrieve the status of the remote working copy
+        $command = 'ssh ' . $this->credentials . " '" . $this->command . "'";
 
 
-		$results = $this->execute($command);
-		if (!empty($results)) {
-			$this->log($results);
-		}
-	}
+        $results = $this->execute($command);
+        if (!empty($results)) {
+            $this->log($results);
+        }
+    }
 
-	// -------------------------------
-	// Set properties from XML
-	// -------------------------------
+    // -------------------------------
+    // Set properties from XML
+    // -------------------------------
 
-	/**
-	 * Set the remote path on the server
-	 *
-	 * @param string $value
-	 * @return void
-	 */
-	public function setCommand($value) {
-		$this->command = $value;
-	}
+    /**
+     * Set the remote path on the server
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setCommand($value)
+    {
+        $this->command = $value;
+    }
 
-	/**
-	 * Set the credentials information
-	 *
-	 * @param string $value
-	 * @return void
-	 */
-	public function setCredentials($value) {
-		$this->credentials = $value;
-	}
+    /**
+     * Set the credentials information
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setCredentials($value)
+    {
+        $this->credentials = $value;
+    }
 
 }

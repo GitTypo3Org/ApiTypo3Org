@@ -5,44 +5,47 @@
  */
 require_once('BaseTask.php');
 
-class CommandLocal extends BaseTask {
+class CommandLocal extends BaseTask
+{
 
-	/**
-	 * @var string
-	 */
-	protected $command = '';
+    /**
+     * @var string
+     */
+    protected $command = '';
 
-	/**
-	 * Main entry point.
-	 *
-	 * @return void
-	 */
-	public function main() {
+    /**
+     * Main entry point.
+     *
+     * @return void
+     */
+    public function main()
+    {
 
-		// Initialize task
-		$this->initialize();
+        // Initialize task
+        $this->initialize();
 
-		// commands that will retrieve the status of the remote working copy
-		$command = $this->command;
+        // commands that will retrieve the status of the remote working copy
+        $command = $this->command;
 
-		$results = $this->execute($command);
-		if (!empty($results)) {
-			$this->log($results);
-		}
-	}
+        $results = $this->execute($command);
+        if (!empty($results)) {
+            $this->log($results);
+        }
+    }
 
-	// -------------------------------
-	// Set properties from XML
-	// -------------------------------
+    // -------------------------------
+    // Set properties from XML
+    // -------------------------------
 
-	/**
-	 * Set the remote path on the server
-	 *
-	 * @param string $value
-	 * @return void
-	 */
-	public function setCommand($value) {
-		$this->command = $value;
-	}
+    /**
+     * Set the remote path on the server
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setCommand($value)
+    {
+        $this->command = $value;
+    }
 
 }
