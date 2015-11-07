@@ -27,12 +27,6 @@ class Download extends BaseTask
     protected $tagName = '';
 
     /**
-     *
-     * @var string
-     */
-    protected $submoduleDirectory = '';
-
-    /**
      * Generates commands to download different sources related to TYPO3
      *
      * @return void
@@ -50,20 +44,8 @@ class Download extends BaseTask
             $commands[] = 'cd ' . $this->target . '; git checkout master --quiet';
         }
 
-        // needs to switch to the master before it can make a pull...
-        if ($this->submoduleDirectory) {
-            $commands[] = 'rm -rf ' . $this->submoduleDirectory;
-            $commands[] = 'cd ' . $this->target . '; git reset --hard --quiet';
-            $commands[] = 'cd ' . $this->target . '; git checkout master --quiet';
-            $commands[] = 'cd ' . $this->target . '; git submodule update --quiet';
-        }
-
         $commands[] = 'cd ' . $this->target . '; git pull --quiet';
         $commands[] = 'cd ' . $this->target . '; git fetch --tags --quiet';
-        if ($this->submoduleDirectory) {
-            $commands[] = 'rm -rf ' . $this->submoduleDirectory;
-            $commands[] = 'cd ' . $this->target . '; git reset --hard --quiet';
-        }
         $commands[] = 'cd ' . $this->target . '; git checkout ' . $this->tagName . ' --quiet';
         $commands[] = 'cd ' . $this->target . '; git submodule update --quiet';
 
@@ -108,14 +90,4 @@ class Download extends BaseTask
         $this->tagName = $tagName;
     }
 
-    /**
-     * Setter for submoduleDirectory
-     *
-     * @param string $submoduleDirectory
-     * @return void
-     */
-    public function setSubmoduleDirectory($submoduleDirectory)
-    {
-        $this->submoduleDirectory = $submoduleDirectory;
-    }
 }
