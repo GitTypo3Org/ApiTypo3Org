@@ -20,7 +20,6 @@
 
 		<!-- Reset the repository (optional) -->
 		<!-- <delete dir="${path.source}${version}" /> -->
-		<!--download repository="${repository}" target="${path.source}${version}" tagName="${tagName}" submoduleDirectory="${path.source}${version}/typo3/sysext" /-->
 		<download repository="${repository}" target="${path.source}${version}" tagName="${tagName}" />
 
 		<!-- Reset the API (recommanded) -->

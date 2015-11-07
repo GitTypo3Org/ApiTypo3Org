@@ -1,33 +1,9 @@
 <?php
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2013-2015 Xavier Perseguers <xavier@causal.ch>
- *  All rights reserved
- *
- *  You can redistribute this script and/or modify it under the
- *  terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
 
 /**
  * This class is used to generate an index objects.inv compatible
  * with Intersphinx facilty from Sphinx from the XML API documentation
  * from Doxygen.
- *
- * @author Xavier Perseguers <xavier@causal.ch>
- *
  */
 require_once('BaseTask.php');
 
@@ -166,20 +142,20 @@ class Intersphinx extends BaseTask {
 	protected function writeIndexFile() {
 		$handle = fopen($this->directoryOutput . 'objects.inv', 'wb');
 		//$handle2 = fopen($this->directoryOutput . 'objects.uncompressed.inv', 'wb');
-		
+
 		$headers = array();
 		$headers[] = '# Sphinx inventory version 2';
 		$headers[] = '# Project: ' . $this->projectName;
 		$headers[] = '# Version: ' . $this->projectVersion;
 		$headers[] = '# The remainder of this file is compressed using zlib.';
-		
+
 		fwrite($handle, implode("\n", $headers) . "\n");
 		//fwrite($handle2, implode("\n", $headers). "\n");
 
 		$entries = implode("\n", $this->indexEntries) . "\n";
 		fwrite($handle, gzcompress($entries));
 		//fwrite($handle2, $entries);
-		
+
 		fclose($handle);
 		//fclose($handle2);
 	}
@@ -313,5 +289,3 @@ class Intersphinx extends BaseTask {
 	}
 
 }
-
-?>
