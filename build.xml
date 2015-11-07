@@ -62,11 +62,6 @@
 		<echo>---------------------------------------------</echo>
 		<echo>phing build-typo3cms-master       </echo>
 		<echo>phing build-typo3cms-6.2          </echo><!-- CHANGE ME FOR NEXT VERSION -->
-		<echo>phing build-typo3cms-6.1          </echo>
-		<echo>phing build-typo3cms-6.0          </echo>
-		<echo>phing build-typo3cms-4.7          </echo>
-		<echo>phing build-typo3cms-4.6          </echo>
-		<echo>phing build-typo3cms-4.5          </echo>
 		<echo/>
 
 		<echo>---------------------------------------------</echo>
@@ -95,10 +90,5 @@
 
 	<import file="Phing/typo3cms-master.xml"/>
 	<import file="Phing/typo3cms-6.2.xml"/><!-- CHANGE ME FOR NEXT VERSION -->
-	<!--<import file="Phing/typo3cms-6.1.xml"/>-->
-	<!--<import file="Phing/typo3cms-6.0.xml"/>-->
-	<!--<import file="Phing/typo3cms-4.7.xml"/>-->
-	<!--import file="Phing/typo3cms-4.6.xml"/-->
-	<!--<import file="Phing/typo3cms-4.5.xml"/>-->
 
 </project>
