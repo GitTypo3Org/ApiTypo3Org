@@ -32,10 +32,8 @@ TYPO3 source code is well documented and allows you to understand many internals
 Archives and offline reading
 ----------------------------
 
-If an older version of TYPO3 is needed - or for offline consulting -&nbsp; archives are available for download. Also
-for Mac OS Users, notice that TYPO3 API is also coming in Docset format which can be downloaded and installed in
-this application.
-    
+If an older version of TYPO3 is needed - or for offline consulting - [archives](http://api.typo3.org/archives/) are available for download.
+
 How it is built?
 ----------------
 
