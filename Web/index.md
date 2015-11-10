@@ -16,12 +16,15 @@ TYPO3 source code is well documented and allows you to understand many internals
 
 <table>
     <tr>
-        <td style="width: 240px" rowspan="1">TYPO3 -&nbsp;<strong style="font-style: normal; ">6.2 current
-            stable</strong></td>
-        <td rowspan="1"><a href="http://typo3.org/api/typo3cms" target="_blank">typo3.org/api/typo3cms</a></td>
+        <td>TYPO3 CMS 7 LTS - current stable</td>
+        <td><a href="http://api.typo3.org/typo3cms" target="_blank">api.typo3.org/typo3cms</a></td>
     </tr>
     <tr>
-        <td> TYPO3 - <strong>master</strong></td>
+        <td style="width: 240px">TYPO3 CMS 6.2 - old stable</td>
+        <td><a href="http://api.typo3.org/typo3cms/62" target="_blank">api.typo3.org/typo3cms/62</a></td>
+    </tr>
+    <tr>
+        <td> TYPO3 CMS master</td>
         <td><a href="http://api.typo3.org/typo3cms/master" target="_blank">api.typo3.org/typo3cms/master</a></td>
     </tr>
 </table>
