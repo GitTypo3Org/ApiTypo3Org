@@ -8,7 +8,7 @@
 
 		<!-- check version http://typo3.org/download/packages/ -->
 		<property name="projectName" value="TYPO3 CMS API"/>
-		<property name="tagName" value="master"/><!-- CHANGE ME FOR NEXT VERSION -->
+		<property name="tagName" value="TYPO3_7-6"/><!-- CHANGE ME FOR NEXT VERSION -->
 		<property name="tagNameDisplay" value="7"/><!-- CHANGE ME FOR NEXT VERSION -->
 		<property name="currentStableVersion" value="true"/><!-- CHANGE ME FOR NEXT VERSION -->
 
