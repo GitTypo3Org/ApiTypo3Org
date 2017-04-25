@@ -11,4 +11,8 @@ RewriteRule   ^favicon.ico  https://typo3.org/favicon.ico  [R=301,L]
 RedirectMatch 301 typo3cms$|typo3cms/$ http://api.typo3.org/typo3cms/current/html/
 RedirectMatch 301 typo3cms\/current$|typo3cms\/current/$ http://api.typo3.org/typo3cms/current/html/
 RedirectMatch 301 typo3cms\/master$|typo3cms\/master/$ http://api.typo3.org/typo3cms/master/html/
+RedirectMatch 301 typo3cms\/8\/*$|typo3cms\/7/*$ http://api.typo3.org/typo3cms/8/html/
 RedirectMatch 301 typo3cms\/7\/*$|typo3cms\/7/*$ http://api.typo3.org/typo3cms/7/html/
+RedirectMatch 301 typo3cms\/61\/*$|typo3cms\/61/*$ http://api.typo3.org/typo3cms/61/html/
+RedirectMatch 301 typo3cms\/47\/*$|typo3cms\/61/*$ http://api.typo3.org/typo3cms/47/html/
+RedirectMatch 301 typo3cms\/45\/*$|typo3cms\/45/*$ http://api.typo3.org/typo3cms/45/html/
