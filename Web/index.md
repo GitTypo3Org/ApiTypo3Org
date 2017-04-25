@@ -16,12 +16,28 @@ TYPO3 source code is well documented and allows you to understand many internals
 
 <table>
     <tr>
-        <td>TYPO3 CMS 7 LTS - current stable</td>
-        <td><a href="http://api.typo3.org/typo3cms" target="_blank">api.typo3.org/typo3cms</a></td>
+        <td>TYPO3 CMS 8</td>
+        <td><a href="http://api.typo3.org/typo3cms/8" target="_blank">api.typo3.org/typo3cms/8</a></td>
     </tr>
     <tr>
-        <td style="width: 240px">TYPO3 CMS 6.2 - old stable</td>
+        <td>TYPO3 CMS 7 LTS</td>
+        <td><a href="http://api.typo3.org/typo3cms/7" target="_blank">api.typo3.org/typo3cms/7</a></td>
+    </tr>
+    <tr>
+        <td style="width: 240px">TYPO3 CMS 6.2</td>
         <td><a href="http://api.typo3.org/typo3cms/62" target="_blank">api.typo3.org/typo3cms/62</a></td>
+    </tr>
+    <tr>
+        <td style="width: 240px">TYPO3 CMS 6.1</td>
+        <td><a href="http://api.typo3.org/typo3cms/61" target="_blank">api.typo3.org/typo3cms/61</a></td>
+    </tr>
+    <tr>
+        <td style="width: 240px">TYPO3 CMS 4.7</td>
+        <td><a href="http://api.typo3.org/typo3cms/47" target="_blank">api.typo3.org/typo3cms/47</a></td>
+    </tr>
+    <tr>
+        <td style="width: 240px">TYPO3 CMS 4.5</td>
+        <td><a href="http://api.typo3.org/typo3cms/45" target="_blank">api.typo3.org/typo3cms/45</a></td>
     </tr>
     <tr>
         <td> TYPO3 CMS master</td>

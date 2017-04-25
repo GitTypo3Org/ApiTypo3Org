@@ -90,6 +90,7 @@
 
 	<import file="Phing/typo3cms-master.xml"/>
 	<import file="Phing/typo3cms-6.2.xml"/>
-	<import file="Phing/typo3cms-7.xml"/><!-- CHANGE ME FOR NEXT VERSION -->
+	<import file="Phing/typo3cms-7.xml"/>
+	<import file="Phing/typo3cms-8.xml"/><!-- CHANGE ME FOR NEXT VERSION -->
 
 </project>
